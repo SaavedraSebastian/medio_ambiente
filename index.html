@@ -4,990 +4,787 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoGestión Trujillo - Gestión Sostenible de Residuos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Barlow', sans-serif;
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#047857',
+            primaryDark: '#065f46',
+            secondary: '#f8fafc',
+            lightGray: '#e2e8f0',
+            darkGray: '#64748b',
+            accent: '#a7f3d0',
+          },
+          fontFamily: {
+            'barlow': ['Barlow', 'sans-serif'],
+          },
+          animation: {
+            'floating': 'floating 3s ease-in-out infinite',
+          },
+          keyframes: {
+            floating: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            }
+          }
+        }
+      }
     }
-    
+  </script>
+  <style type="text/css">
     body {
-      overflow-x: hidden;
-      background-color: #f8fafc;
-      color: #333;
+      scroll-behavior: smooth;
     }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    /* Header - Manteniendo el diseño original */
-    .header {
-      background: linear-gradient(
-                rgba(0, 88, 80, 0.85), 
-                rgba(73, 190, 148, 0.7)
-              ), 
-              url('https://i.postimg.cc/qqMJ17YG/image.png');
+    .hero-bg {
+      background: linear-gradient(rgba(0, 88, 80, 0.85), rgba(73, 190, 148, 0.7)), 
+                  url('https://i.postimg.cc/qqMJ17YG/image.png');
       background-size: cover;
       background-position: center;
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
     }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .logo-icon {
-      width: 50px;
-      height: 50px;
-      background: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .logo-text {
-      color: white;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-    
-    .logo-text span {
-      color: #a7f3d0;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 30px;
-    }
-    
-    .nav-link {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      padding-bottom: 5px;
-    }
-    
-    .nav-link:after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background-color: #a7f3d0;
-      transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover:after {
-      width: 100%;
-    }
-    
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 80vh;
-      max-width: 800px;
-      padding: 40px 0;
-    }
-    
-    .hero-title {
-      font-size: 3.5rem;
-      font-weight: 800;
-      color: white;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-    
-    .hero-title span {
-      color: #a7f3d0;
-    }
-    
-    .hero-subtitle {
-      font-size: 1.5rem;
-      color: #ecfdf5;
-      margin-bottom: 40px;
-      line-height: 1.6;
-    }
-    
-    .btn-group {
-      display: flex;
-      gap: 20px;
-    }
-    
-    .btn {
-      padding: 15px 35px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .btn-primary {
-      background: #047857;
-      color: white;
-      box-shadow: 0 4px 15px rgba(4, 120, 87, 0.3);
-    }
-    
-    .btn-primary:hover {
-      background: #059669;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(4, 120, 87, 0.4);
-    }
-    
-    .btn-secondary {
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-    }
-    
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
-    }
-    
-    /* Sección Misión Mejorada - Diseño más informativo y visual */
-    .market-mission-section {
-      padding: 100px 0;
-      background: linear-gradient(to bottom, #f0fdfa, #ffffff);
-      position: relative;
-      overflow: hidden;
-    }
-    
     .market-pattern {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       background: 
         radial-gradient(circle at 10% 20%, rgba(167, 243, 208, 0.1) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 20%);
-      z-index: 0;
     }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .section-title h2 {
-      font-size: 2.5rem;
-      color: #047857;
-      margin-bottom: 15px;
-      font-weight: 700;
-    }
-    
-    .section-title h2 span {
-      color: #059669;
-    }
-    
-    .section-divider {
-      width: 80px;
-      height: 4px;
-      background: #10b981;
-      margin: 0 auto;
-      border-radius: 2px;
-    }
-    
-    .section-title p {
-      color: #4b5563;
-      max-width: 700px;
-      margin: 20px auto 0;
-      line-height: 1.6;
-    }
-    
-    .mission-container {
-      display: flex;
-      gap: 40px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .market-visual {
-      flex: 1;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0, 88, 80, 0.15);
-      position: relative;
-    }
-    
-    .market-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-    
-    .market-visual:hover img {
-      transform: scale(1.05);
-    }
-    
-    .market-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 88, 80, 0.85);
-      color: white;
-      padding: 20px;
-    }
-    
-    .market-overlay h3 {
-      font-size: 1.5rem;
-      margin-bottom: 5px;
-    }
-    
-    .market-overlay p {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-    
-    .mission-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-    
     .mission-card {
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
       border-left: 4px solid #10b981;
     }
-    
-    .mission-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    }
-    
-    .mission-card h3 {
-      color: #047857;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
-      font-size: 1.4rem;
-    }
-    
-    .mission-card h3 i {
-      color: #10b981;
-    }
-    
-    .mission-card p {
-      color: #4b5563;
-      line-height: 1.7;
-      margin-bottom: 15px;
-    }
-    
-    .market-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
-    
-    .stat-item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background: #f0fdf4;
-      padding: 15px;
-      border-radius: 8px;
-    }
-    
-    .stat-icon {
-      width: 50px;
-      height: 50px;
-      background: #d1fae5;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .stat-icon i {
-      color: #047857;
-      font-size: 1.2rem;
-    }
-    
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #047857;
-    }
-    
-    .stat-label {
-      font-size: 0.9rem;
-      color: #4b5563;
-    }
-    
-    .benefits-section {
-      margin-top: 60px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .benefits-title {
-      text-align: center;
-      color: #047857;
-      font-size: 1.8rem;
-      margin-bottom: 40px;
-      position: relative;
-    }
-    
-    .benefits-title:after {
-      content: '';
-      position: absolute;
-      width: 60px;
-      height: 3px;
-      background: #10b981;
-      bottom: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 2px;
-    }
-    
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
-    
     .benefit-card {
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
       border-top: 4px solid #10b981;
     }
-    
-    .benefit-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    }
-    
-    .benefit-icon {
-      width: 60px;
-      height: 60px;
-      background: #d1fae5;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    
-    .benefit-icon i {
-      color: #047857;
-      font-size: 1.5rem;
-    }
-    
-    .benefit-content h4 {
-      color: #047857;
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-    }
-    
-    .benefit-content p {
-      color: #4b5563;
-      line-height: 1.6;
-    }
-    
-    .testimonial-section {
-      background: white;
-      border-radius: 12px;
-      padding: 40px;
-      margin-top: 60px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    .testimonial-card {
       border-left: 4px solid #10b981;
-      position: relative;
-      z-index: 1;
     }
-    
-    .testimonial-content {
-      max-width: 800px;
-      margin: 0 auto;
+    .market-overlay {
+      background: rgba(0, 88, 80, 0.85);
     }
-    
-    .testimonial-text {
-      font-size: 1.3rem;
-      color: #047857;
-      font-style: italic;
-      text-align: center;
-      margin-bottom: 30px;
-      line-height: 1.7;
-      position: relative;
-    }
-    
-    .testimonial-text:before,
-    .testimonial-text:after {
-      content: '"';
-      font-size: 3rem;
-      color: #a7f3d0;
-      position: absolute;
-    }
-    
-    .testimonial-text:before {
-      top: -20px;
-      left: -30px;
-    }
-    
-    .testimonial-text:after {
-      bottom: -40px;
-      right: -30px;
-    }
-    
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-    }
-    
-    .author-avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid #10b981;
-    }
-    
-    .author-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .author-info h4 {
-      color: #047857;
-      font-size: 1.2rem;
-      margin-bottom: 5px;
-    }
-    
-    .author-info p {
-      color: #4b5563;
-      font-size: 0.9rem;
-    }
-    
-    /* Sección Soluciones */
-    .solutions-section {
-      padding: 100px 0;
-      background: #f0fdfa;
-    }
-    
-    .solutions-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-    
-    .solution-card {
-      background: white;
-      border-radius: 12px;
-      padding: 40px 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-    
-    .solution-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-    }
-    
-    .solution-icon {
-      width: 80px;
-      height: 80px;
-      background: #d1fae5;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 25px;
-    }
-    
-    .solution-icon i {
-      font-size: 2rem;
-      color: #047857;
-    }
-    
-    .solution-card h3 {
-      font-size: 1.5rem;
-      color: #047857;
-      margin-bottom: 15px;
-    }
-    
-    .solution-card p {
-      color: #4b5563;
-      line-height: 1.6;
-    }
-    
-    /* Sección Impacto */
-    .impact-section {
-      padding: 100px 0;
-      background: linear-gradient(to right, #047857, #059669);
-      color: white;
-    }
-    
-    .impact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      text-align: center;
-    }
-    
     .impact-card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      border-radius: 12px;
-      padding: 40px 20px;
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    
-    .impact-value {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #a7f3d0;
+    .contact-form {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     }
-    
-    .impact-label {
-      font-size: 1.2rem;
+    .form-control:focus {
+      box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.1);
     }
-    
-    /* Footer */
-    .footer {
-      background: #0f172a;
-      color: #cbd5e1;
-      padding: 60px 0 30px;
+    .social-icon:hover {
+      transform: translateY(-3px);
     }
-    
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-      margin-bottom: 50px;
-    }
-    
-    .footer-col h3 {
-      color: white;
-      margin-bottom: 25px;
-      font-size: 1.4rem;
-    }
-    
-    .footer-links {
-      list-style: none;
-    }
-    
-    .footer-links li {
-      margin-bottom: 15px;
-    }
-    
-    .footer-links a {
-      color: #cbd5e1;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    
-    .footer-links a:hover {
-      color: #a7f3d0;
-    }
-    
-    .footer-bottom {
-      text-align: center;
-      padding-top: 30px;
-      border-top: 1px solid #334155;
-    }
-    
-    .market-context {
-      background: #fffbeb;
-      padding: 30px;
-      border-radius: 12px;
-      margin-top: 40px;
-      border-left: 4px solid #f59e0b;
-    }
-    
-    .market-context h3 {
-      color: #b45309;
-      margin-bottom: 15px;
-      font-size: 1.4rem;
-    }
-    
-    .market-context p {
-      color: #4b5563;
-      line-height: 1.7;
-    }
-    
-    /* Animaciones */
     .animate-card {
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.6s ease;
     }
-    
     .animate-card.animate {
       opacity: 1;
       transform: translateY(0);
     }
-    
-    .floating {
-      animation: floating 3s ease-in-out infinite;
-    }
-    
-    @keyframes floating {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0px); }
-    }
-    
-    /* Responsive */
-    @media (max-width: 992px) {
-      .mission-container {
-        flex-direction: column;
-      }
-      
-      .hero-title {
-        font-size: 2.8rem;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-      
-      .btn-group {
-        flex-direction: column;
-      }
-      
-      .hero-title {
-        font-size: 2.3rem;
-      }
-      
-      .hero-subtitle {
-        font-size: 1.2rem;
-      }
-      
-      .market-stats {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
 </head>
-<body>
+<body class="font-barlow bg-gray-50 text-gray-800 overflow-x-hidden">
+  <!-- Enlace de salto para accesibilidad -->
+  <a href="#main-content" class="sr-only">Saltar al contenido principal</a>
+  
   <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <nav class="nav-container">
-        <div class="logo">
-          <div class="logo-icon">
-            <i class="fas fa-leaf fa-lg" style="color: #047857;"></i>
+  <header class="hero-bg min-h-screen relative overflow-hidden">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <nav class="flex justify-between items-center py-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+            <i class="fas fa-leaf text-primary text-xl"></i>
           </div>
-          <div class="logo-text">EcoGestión<span>Trujillo</span></div>
+          <div class="text-white text-2xl font-bold">EcoGestión<span class="text-accent">Trujillo</span></div>
         </div>
         
-        <div class="nav-links">
-          <a href="#" class="nav-link">Inicio</a>
-          <a href="#" class="nav-link">Resumen de Residuos</a>
-          <a href="#" class="nav-link">Comunidad</a>
-          <a href="#" class="nav-link">Reportes</a>
-          <a href="#" class="nav-link">Contáctanos</a>
+        <button id="navToggle" class="md:hidden text-white text-2xl z-30">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <div id="navLinks" class="fixed md:static top-0 right-[-100%] w-72 md:w-auto h-screen md:h-auto bg-white md:bg-transparent p-8 md:p-0 flex flex-col md:flex-row gap-6 md:gap-8 transition-all duration-300 z-20">
+          <button id="closeMenu" class="md:hidden absolute top-6 right-6 text-gray-800 text-2xl">
+            <i class="fas fa-times"></i>
+          </button>
+          <a href="Residuos.html" class="text-gray-800 md:text-white font-medium hover:text-primary md:hover:text-accent transition-colors">Resumen de Residuos</a>
+          <a href="Comunidad.html" class="text-gray-800 md:text-white font-medium hover:text-primary md:hover:text-accent transition-colors">Comunidad</a>
+          <a href="Reportes.html" class="text-gray-800 md:text-white font-medium hover:text-primary md:hover:text-accent transition-colors">Reportes</a>
+          <a href="#contact" class="text-gray-800 md:text-white font-medium hover:text-primary md:hover:text-accent transition-colors">Contáctanos</a>
         </div>
       </nav>
       
-      <div class="hero-content">
-        <h1 class="hero-title">Transformando el <span>Mercado Mayorista</span> de Trujillo</h1>
-        <p class="hero-subtitle">Una plataforma digital para la gestión sostenible de residuos sólidos. Súmate a la revolución verde en el corazón comercial de Trujillo.</p>
-        <div class="btn-group">
-          <a href="#mision" class="btn btn-primary">
-            <i class="fas fa-info-circle"></i>Conócenos
+      <div class="flex flex-col justify-center min-h-[80vh] max-w-3xl py-10">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+          Transformando el <span class="text-accent">Mercado Mayorista</span> de Trujillo
+        </h1>
+        <p class="text-xl text-gray-100 mb-10 leading-relaxed">
+          Una plataforma digital para la gestión sostenible de residuos sólidos. Súmate a la revolución verde en el corazón comercial de Trujillo.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#mision" class="bg-primary hover:bg-primaryDark text-white font-semibold py-3 px-8 rounded-full flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+            <i class="fas fa-info-circle"></i> Conócenos
           </a>
-          <a href="#" class="btn btn-secondary">
-            <i class="fas fa-download"></i>Descargar App
+          <a href="#" class="border-2 border-white text-white hover:bg-white/10 font-semibold py-3 px-8 rounded-full flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-1">
+            <i class="fas fa-download"></i> Descargar App
           </a>
         </div>
       </div>
     </div>
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-10 hidden"></div>
   </header>
   
-  <!-- Sección Misión Mejorada para el Mercado -->
-  <section id="mision" class="market-mission-section">
-    <div class="market-pattern"></div>
-    <div class="container">
-      <div class="section-title">
-        <h2>REVOLUCIONANDO LA GESTIÓN DE RESIDUOS EN EL <span>MERCADO MAYORISTA</span></h2>
-        <div class="section-divider"></div>
-        <p>Soluciones prácticas para comerciantes que transforman residuos en oportunidades</p>
-      </div>
-      
-      <div class="mission-container">
-        <div class="market-visual">
-          <img src="https://i.postimg.cc/yNr6LRcY/image.png" alt="Mercado Mayorista de Trujillo">
-          <div class="market-overlay">
-            <h3>Centro Comercial de Trujillo</h3>
-            <p>450+ puestos comerciales transformando su gestión de residuos</p>
+  <main id="main-content">
+    <!-- Sección Misión -->
+    <section id="mision" class="py-20 bg-gradient-to-b from-[#f0fdfa] to-white relative overflow-hidden">
+      <div class="market-pattern absolute inset-0 z-0"></div>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+            REVOLUCIONANDO LA GESTIÓN DE RESIDUOS EN EL <span class="text-primaryDark">MERCADO MAYORISTA</span>
+          </h2>
+          <div class="w-20 h-1 bg-green-500 mx-auto rounded-full mb-6"></div>
+          <p class="text-gray-600">
+            Soluciones prácticas para comerciantes que transforman residuos en oportunidades
+          </p>
+        </div>
+        
+        <div class="flex flex-col lg:flex-row gap-8">
+          <div class="lg:w-1/2 rounded-xl overflow-hidden shadow-xl relative">
+            <img src="https://i.postimg.cc/yNr6LRcY/image.png" alt="Mercado Mayorista de Trujillo" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+            <div class="market-overlay absolute bottom-0 left-0 w-full text-white p-6">
+              <h3 class="text-xl font-bold">Centro Comercial de Trujillo</h3>
+              <p>450+ puestos comerciales transformando su gestión de residuos</p>
+            </div>
+          </div>
+          
+          <div class="lg:w-1/2 flex flex-col gap-6">
+            <div class="animate-card bg-white p-6 rounded-xl shadow-lg mission-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <h3 class="text-primary text-xl font-semibold flex items-center gap-2 mb-4">
+                <i class="fas fa-bullseye text-green-500"></i>Nuestra Misión
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Empoderar a cada comerciante del Mercado Mayorista con herramientas prácticas para convertir los residuos en recursos. Creamos un ecosistema donde la sostenibilidad se traduce en ahorros económicos y reconocimiento comercial.
+              </p>
+            </div>
+            
+            <div class="animate-card bg-white p-6 rounded-xl shadow-lg mission-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <h3 class="text-primary text-xl font-semibold flex items-center gap-2 mb-4">
+                <i class="fas fa-sync-alt text-green-500"></i>Economía Circular en Acción
+              </h3>
+              <p class="text-gray-600 mb-6">
+                Transformamos los residuos orgánicos en compost para agricultores locales y los materiales reciclables en nuevos productos. Cada día cerramos el ciclo de más de 8 toneladas de materiales que antes terminaban en vertederos.
+              </p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center gap-4 bg-green-50 p-4 rounded-lg">
+                  <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-trash text-primary"></i>
+                  </div>
+                  <div>
+                    <div class="text-primary text-xl font-bold">8.5 T</div>
+                    <div class="text-gray-600 text-sm">Residuos diarios gestionados</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center gap-4 bg-green-50 p-4 rounded-lg">
+                  <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-recycle text-primary"></i>
+                  </div>
+                  <div>
+                    <div class="text-primary text-xl font-bold">78%</div>
+                    <div class="text-gray-600 text-sm">Material reciclado</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="animate-card bg-white p-6 rounded-xl shadow-lg mission-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <h3 class="text-primary text-xl font-semibold flex items-center gap-2 mb-4">
+                <i class="fas fa-cogs text-green-500"></i>Sistema Especializado
+              </h3>
+              <p class="text-gray-600">
+                Desarrollamos un modelo de gestión que respeta la operativa del mercado: recolectamos en horarios estratégicos, clasificamos en el momento y transformamos en tiempo récord. Sin interrumpir tu negocio.
+              </p>
+            </div>
           </div>
         </div>
         
-        <div class="mission-content">
-          <div class="mission-card animate-card" style="animation-delay: 0.1s;">
-            <h3><i class="fas fa-bullseye"></i>Nuestra Misión</h3>
-            <p>Empoderar a cada comerciante del Mercado Mayorista con herramientas prácticas para convertir los residuos en recursos. Creamos un ecosistema donde la sostenibilidad se traduce en ahorros económicos y reconocimiento comercial.</p>
+        <!-- Sección Beneficios -->
+        <div class="mt-20">
+          <h3 class="text-2xl text-primary font-bold text-center mb-16 relative">
+            Beneficios Clave para Comerciantes
+            <div class="w-16 h-1 bg-green-500 absolute -bottom-3 left-1/2 transform -translate-x-1/2"></div>
+          </h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-xl p-6 shadow-lg benefit-card flex gap-4 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+              <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-money-bill-wave text-primary text-2xl"></i>
+              </div>
+              <div>
+                <h4 class="text-primary font-bold text-lg mb-2">Ahorro Económico</h4>
+                <p class="text-gray-600">Reducción de hasta 30% en costos de gestión de residuos mediante el reciclaje y compostaje.</p>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-lg benefit-card flex gap-4 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+              <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-certificate text-primary text-2xl"></i>
+              </div>
+              <div>
+                <h4 class="text-primary font-bold text-lg mb-2">Certificación Verde</h4>
+                <p class="text-gray-600">Sello de sostenibilidad que mejora la imagen de tu negocio frente a clientes y proveedores.</p>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-lg benefit-card flex gap-4 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+              <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-chart-bar text-primary text-2xl"></i>
+              </div>
+              <div>
+                <h4 class="text-primary font-bold text-lg mb-2">Reportes Detallados</h4>
+                <p class="text-gray-600">Acceso a métricas personalizadas sobre tu gestión de residuos y contribución ambiental.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial -->
+    
+      </div>
+    </section>
+    
+    <!-- Sección Soluciones -->
+      <section class="py-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Soluciones Innovadoras para el Mercado</h2>
+        <div class="w-20 h-1 bg-green-500 mx-auto rounded-full mb-6"></div>
+        <p class="text-gray-600 text-lg">
+          Herramientas diseñadas específicamente para las necesidades del Mercado Mayorista de Trujillo
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <!-- Tarjeta 1 - Gestión de Residuos -->
+        <div class="solution-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl">
+          <div class="relative h-60 overflow-hidden">
+            <div class="solution-image absolute inset-0 bg-cover bg-center transition-transform duration-500" style="background-image: url('https://img.freepik.com/vector-gratis/juego-clasificacion-basura_74855-15415.jpg?semt=ais_hybrid&w=740')"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/80"></div>
+            <div class="solution-icon-container absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-green-100 rounded-full flex items-center justify-center border-4 border-white">
+              <div class="solution-icon-bg"></div>
+              <i class="fas fa-recycle text-primary text-3xl animate-floating"></i>
+            </div>
           </div>
           
-          <div class="mission-card animate-card" style="animation-delay: 0.2s;">
-            <h3><i class="fas fa-sync-alt"></i>Economía Circular en Acción</h3>
-            <p>Transformamos los residuos orgánicos en compost para agricultores locales y los materiales reciclables en nuevos productos. Cada día cerramos el ciclo de más de 8 toneladas de materiales que antes terminaban en vertederos.</p>
+          <div class="pt-16 pb-8 px-6 text-center">
+            <h3 class="text-primary text-xl font-bold mb-4">Gestión de Residuos Inteligente</h3>
+            <p class="text-gray-600 mb-6">
+              Sistema de clasificación y recolección optimizado para el flujo comercial del mercado, con puntos estratégicos de reciclaje y compostaje.
+            </p>
+            <ul class="text-left text-gray-600 space-y-2 mb-6">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Recolección en horarios no comerciales</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Puntos de reciclaje estratégicos</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Transformación de residuos orgánicos</span>
+              </li>
+            </ul>
+            <a href="#" class="inline-block text-primary font-medium hover:text-primaryDark transition-colors">
+              Ver detalles <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Tarjeta 2 - Comunidad Activa -->
+        <div class="solution-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl">
+          <div class="relative h-60 overflow-hidden">
+            <div class="solution-image absolute inset-0 bg-cover bg-center transition-transform duration-500" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/80"></div>
+            <div class="solution-icon-container absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-green-100 rounded-full flex items-center justify-center border-4 border-white">
+              <div class="solution-icon-bg" style="animation-delay: 0.5s;"></div>
+              <i class="fas fa-users text-primary text-3xl animate-floating" style="animation-delay: 0.3s;"></i>
+            </div>
+          </div>
+          
+          <div class="pt-16 pb-8 px-6 text-center">
+            <h3 class="text-primary text-xl font-bold mb-4">Comunidad Activa</h3>
+            <p class="text-gray-600 mb-6">
+              Programas de capacitación para comerciantes y personal, fomentando prácticas sostenibles y creando una red de agentes ambientales.
+            </p>
+            <ul class="text-left text-gray-600 space-y-2 mb-6">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Talleres semanales de reciclaje</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Red de agentes ambientales</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Certificación de comercios sostenibles</span>
+              </li>
+            </ul>
+            <a href="#" class="inline-block text-primary font-medium hover:text-primaryDark transition-colors">
+              Ver detalles <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Tarjeta 3 - Dashboard Personalizado -->
+        <div class="solution-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl">
+          <div class="relative h-60 overflow-hidden">
+            <div class="solution-image absolute inset-0 bg-cover bg-center transition-transform duration-500" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/80"></div>
+            <div class="solution-icon-container absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-green-100 rounded-full flex items-center justify-center border-4 border-white">
+              <div class="solution-icon-bg" style="animation-delay: 1s;"></div>
+              <i class="fas fa-chart-line text-primary text-3xl animate-floating" style="animation-delay: 0.6s;"></i>
+            </div>
+          </div>
+          
+          <div class="pt-16 pb-8 px-6 text-center">
+            <h3 class="text-primary text-xl font-bold mb-4">Dashboard Personalizado</h3>
+            <p class="text-gray-600 mb-6">
+              Plataforma de monitoreo en tiempo real que muestra métricas de residuos, logros colectivos y áreas de mejora para el mercado.
+            </p>
+            <ul class="text-left text-gray-600 space-y-2 mb-6">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Reportes diarios de residuos gestionados</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Comparativa entre comercios</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                <span>Objetivos de sostenibilidad</span>
+              </li>
+            </ul>
+            <a href="#" class="inline-block text-primary font-medium hover:text-primaryDark transition-colors">
+              Ver detalles <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Estadísticas adicionales -->
+      <div class="mt-20 bg-gradient-to-r from-primary to-primaryDark rounded-2xl p-8 text-white text-center">
+        <h3 class="text-2xl font-bold mb-6">Nuestro Impacto en Números</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div>
+            <div class="text-3xl md:text-4xl font-bold mb-2 text-accent">85%</div>
+            <div class="text-sm">Reducción de residuos</div>
+          </div>
+          <div>
+            <div class="text-3xl md:text-4xl font-bold mb-2 text-accent">150+</div>
+            <div class="text-sm">Comerciantes activos</div>
+          </div>
+          <div>
+            <div class="text-3xl md:text-4xl font-bold mb-2 text-accent">120 T</div>
+            <div class="text-sm">Material reciclado mensual</div>
+          </div>
+          <div>
+            <div class="text-3xl md:text-4xl font-bold mb-2 text-accent">94%</div>
+            <div class="text-sm">Satisfacción de usuarios</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    
+    <!-- Sección Impacto -->
+   
+        
+    
+    <!-- Sección Contacto -->
+     <section id="contact" class="contact-section py-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Únete a la Revolución Verde</h2>
+        <div class="w-20 h-1 bg-green-500 mx-auto rounded-full mb-6"></div>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+          Contáctanos para implementar EcoGestión en tu puesto comercial y formar parte del cambio hacia un mercado más sostenible
+        </p>
+      </div>
+      
+      <div class="flex flex-col lg:flex-row gap-10 items-start">
+        <!-- Información de contacto y mapa -->
+        <div class="w-full lg:w-2/5">
+          <div class="bg-white rounded-xl p-8 contact-info-card mb-10">
+            <h3 class="text-2xl font-bold text-primary mb-6">Información de Contacto</h3>
             
-            <div class="market-stats">
-              <div class="stat-item">
-                <div class="stat-icon">
-                  <i class="fas fa-trash"></i>
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-map-marker-alt text-primary text-xl"></i>
                 </div>
-                <div class="stat-content">
-                  <div class="stat-value">8.5 T</div>
-                  <div class="stat-label">Residuos diarios gestionados</div>
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-1">Nuestra Ubicación</h4>
+                  <p class="text-gray-600">Mercado Mayorista de Trujillo,  Av José María Eguren 176</p>
                 </div>
               </div>
               
-              <div class="stat-item">
-                <div class="stat-icon">
-                  <i class="fas fa-recycle"></i>
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-phone text-primary text-xl"></i>
                 </div>
-                <div class="stat-content">
-                  <div class="stat-value">78%</div>
-                  <div class="stat-label">Material reciclado</div>
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-1">Teléfonos</h4>
+                  <p class="text-gray-600">(044) 123-4567</p>
+                  <p class="text-gray-600">+51 987 654 321</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-envelope text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-1">Correo Electrónico</h4>
+                  <p class="text-gray-600">info@ecogestiontrujillo.com</p>
+                  <p class="text-gray-600">soporte@ecogestiontrujillo.com</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-clock text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-1">Horario de Atención</h4>
+                  <p class="text-gray-600">Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+                  <p class="text-gray-600">Sábados: 9:00 AM - 1:00 PM</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <div class="mission-card animate-card" style="animation-delay: 0.3s;">
-            <h3><i class="fas fa-cogs"></i>Sistema Especializado</h3>
-            <p>Desarrollamos un modelo de gestión que respeta la operativa del mercado: recolectamos en horarios estratégicos, clasificamos en el momento y transformamos en tiempo récord. Sin interrumpir tu negocio.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="benefits-section">
-        <h3 class="benefits-title">Beneficios Clave para Comerciantes</h3>
-        <div class="benefits-grid">
-          <div class="benefit-card animate-card" style="animation-delay: 0.4s;">
-            <div class="benefit-icon">
-              <i class="fas fa-money-bill-wave"></i>
-            </div>
-            <div class="benefit-content">
-              <h4>Ahorro Económico</h4>
-              <p>Reduce hasta 40% tus costos de gestión de residuos con nuestro sistema eficiente</p>
+          <!-- Mapa -->
+          <div class="map-container">
+            <div class="map-placeholder">
+              <div class="text-center p-6">
+                <i class="fas fa-map-marked-alt text-4xl text-primary mb-4"></i>
+                <h4 class="font-bold text-gray-800 mb-2">Ubicación en el Mercado Mayorista</h4>
+                <p class="text-gray-600">Estamos en el sector de administración, piso 1, oficina 201</p>
+              </div>
             </div>
           </div>
           
-          <div class="benefit-card animate-card" style="animation-delay: 0.5s;">
-            <div class="benefit-icon">
-              <i class="fas fa-certificate"></i>
-            </div>
-            <div class="benefit-content">
-              <h4>Sello Verde</h4>
-              <p>Certificación que atrae a clientes conscientes y mejora tu reputación comercial</p>
-            </div>
-          </div>
-          
-          <div class="benefit-card animate-card" style="animation-delay: 0.6s;">
-            <div class="benefit-icon">
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="benefit-content">
-              <h4>Reportes Personalizados</h4>
-              <p>Accede a datos precisos de tus residuos y oportunidades de mejora</p>
-            </div>
-          </div>
-          
-          <div class="benefit-card animate-card" style="animation-delay: 0.7s;">
-            <div class="benefit-icon">
-              <i class="fas fa-hands-helping"></i>
-            </div>
-            <div class="benefit-content">
-              <h4>Capacitación Continua</h4>
-              <p>Programas de formación para tu personal en manejo sostenible de residuos</p>
+          <!-- Redes Sociales -->
+          <div class="mt-8 bg-white rounded-xl p-6 text-center">
+            <h4 class="font-bold text-primary mb-4">Síguenos en Redes Sociales</h4>
+            <div class="flex gap-4 text-center justify-center">
+              <a href="#" class="w-12 h-12 bg-green-100 hover:bg-primary rounded-full flex items-center justify-center transition-all">
+                <i class="fab fa-facebook-f text-primary hover:text-white"></i>
+              </a>
+              <a href="#" class="w-12 h-12 bg-green-100 hover:bg-primary rounded-full flex items-center justify-center transition-all">
+                <i class="fab fa-instagram text-primary hover:text-white"></i>
+              </a>
+              <a href="#" class="w-12 h-12 bg-green-100 hover:bg-primary rounded-full flex items-center justify-center transition-all">
+                <i class="fab fa-whatsapp text-primary hover:text-white"></i>
+              </a>
+              <a href="#" class="w-12 h-12 bg-green-100 hover:bg-primary rounded-full flex items-center justify-center transition-all">
+                <i class="fab fa-youtube text-primary hover:text-white"></i>
+              </a>
             </div>
           </div>
         </div>
+        
+        <!-- Formulario de contacto -->
+        <div class="w-full lg:w-3/5 contact-card rounded-xl overflow-hidden">
+          <div class="contact-form-bg h-full">
+            <div class="contact-form-overlay h-full p-8 md:p-12">
+              <h3 class="text-2xl font-bold text-primary mb-2">Envía un Mensaje</h3>
+              <p class="text-gray-600 mb-8">Completa el formulario y nuestro equipo se pondrá en contacto contigo en menos de 24 horas</p>
+              
+              <form id="contactForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label for="name" class="block text-primary font-medium mb-2">Nombre completo</label>
+                    <div class="relative">
+                      <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-primary"></i>
+                      <input type="text" id="name" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Ej: Juan Pérez" required>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label for="business" class="block text-primary font-medium mb-2">Nombre del negocio</label>
+                    <div class="relative">
+                      <i class="fas fa-store absolute left-4 top-1/2 transform -translate-y-1/2 text-primary"></i>
+                      <input type="text" id="business" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Ej: Frutería El Campesino" required>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label for="email" class="block text-primary font-medium mb-2">Correo electrónico</label>
+                    <div class="relative">
+                      <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-primary"></i>
+                      <input type="email" id="email" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="tunegocio@ejemplo.com" required>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label for="phone" class="block text-primary font-medium mb-2">Teléfono / WhatsApp</label>
+                    <div class="relative">
+                      <i class="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-primary"></i>
+                      <input type="tel" id="phone" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Ej: 987 654 321" required>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <label for="sector" class="block text-primary font-medium mb-2">Sector del Mercado</label>
+                  <div class="relative">
+                    <i class="fas fa-map-marked absolute left-4 top-1/2 transform -translate-y-1/2 text-primary"></i>
+                    <select id="sector" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none" required>
+                      <option value="" disabled selected>Selecciona tu sector</option>
+                      <option value="frutas">Sector Frutas</option>
+                      <option value="verduras">Sector Verduras</option>
+                      <option value="carnes">Sector Carnes</option>
+                      <option value="abarrotes">Sector Abarrotes</option>
+                      <option value="otros">Otros</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-primary"></i>
+                  </div>
+                </div>
+                
+                <div>
+                  <label for="message" class="block text-primary font-medium mb-2">Tu Mensaje</label>
+                  <div class="relative">
+                    <i class="fas fa-comment-dots absolute left-4 top-4 text-primary"></i>
+                    <textarea id="message" rows="5" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <input type="checkbox" id="newsletter" class="mr-3 h-5 w-5 text-primary rounded focus:ring-primary">
+                  <label for="newsletter" class="text-gray-600">Deseo recibir información sobre novedades y promociones</label>
+                </div>
+                
+                <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-semibold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                  <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
+    
     </div>
   </section>
   
-  <!-- Sección Soluciones -->
-  <section class="solutions-section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Soluciones para el Mercado</h2>
-        <div class="section-divider"></div>
-        <p>Herramientas diseñadas específicamente para las necesidades del Mercado Mayorista</p>
-      </div>
-      
-      <div class="solutions-grid">
-        <div class="solution-card">
-          <div class="solution-icon floating">
-            <i class="fas fa-recycle"></i>
-          </div>
-          <h3>Gestión de Residuos Inteligente</h3>
-          <p>Sistema de clasificación y recolección optimizado para el flujo comercial del mercado, con puntos estratégicos de reciclaje y compostaje.</p>
-        </div>
-        
-        <div class="solution-card">
-          <div class="solution-icon floating" style="animation-delay: 0.3s;">
-            <i class="fas fa-users"></i>
-          </div>
-          <h3>Comunidad Activa</h3>
-          <p>Programas de capacitación para comerciantes y personal, fomentando prácticas sostenibles y creando una red de agentes ambientales.</p>
-        </div>
-        
-        <div class="solution-card">
-          <div class="solution-icon floating" style="animation-delay: 0.6s;">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3>Dashboard Personalizado</h3>
-          <p>Plataforma de monitoreo en tiempo real que muestra métricas de residuos, logros colectivos y áreas de mejora para el mercado.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Sección Impacto -->
-  <section class="impact-section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Nuestro Impacto en el Mercado</h2>
-        <div class="section-divider"></div>
-        <p>Resultados tangibles en el Mercado Mayorista de Trujillo</p>
-      </div>
-      
-      <div class="impact-grid">
-        <div class="impact-card">
-          <div class="impact-value">85%</div>
-          <div class="impact-label">Reducción de residuos no tratados</div>
-        </div>
-        
-        <div class="impact-card">
-          <div class="impact-value">350+</div>
-          <div class="impact-label">Comerciantes participantes</div>
-        </div>
-        
-        <div class="impact-card">
-          <div class="impact-value">120 T</div>
-          <div class="impact-label">Material reciclado mensual</div>
-        </div>
-        
-        <div class="impact-card">
-          <div class="impact-value">94%</div>
-          <div class="impact-label">Satisfacción de usuarios</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </main>
   
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <div class="logo">
-            <div class="logo-icon">
-              <i class="fas fa-leaf fa-lg" style="color: #047857;"></i>
+  <footer class="bg-gray-900 text-gray-300 pt-16 pb-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+              <i class="fas fa-leaf text-primary"></i>
             </div>
-            <div class="logo-text">EcoGestión<span>Trujillo</span></div>
+            <div class="text-white text-2xl font-bold">EcoGestión<span class="text-accent">Trujillo</span></div>
           </div>
-          <p style="margin-top: 20px; line-height: 1.7;">Transformando el Mercado Mayorista de Trujillo a través de la gestión sostenible de residuos y la participación comunitaria.</p>
+          <p class="mb-6">
+            Transformando el Mercado Mayorista de Trujillo a través de la gestión sostenible de residuos y la participación comunitaria.
+          </p>
+          <div class="flex gap-3">
+            <a href="#" class="social-icon w-10 h-10 bg-gray-800 hover:bg-primary rounded-full flex items-center justify-center transition-all">
+              <i class="fab fa-facebook-f text-white"></i>
+            </a>
+            <a href="#" class="social-icon w-10 h-10 bg-gray-800 hover:bg-primary rounded-full flex items-center justify-center transition-all">
+              <i class="fab fa-instagram text-white"></i>
+            </a>
+            <a href="#" class="social-icon w-10 h-10 bg-gray-800 hover:bg-primary rounded-full flex items-center justify-center transition-all">
+              <i class="fab fa-twitter text-white"></i>
+            </a>
+            <a href="#" class="social-icon w-10 h-10 bg-gray-800 hover:bg-primary rounded-full flex items-center justify-center transition-all">
+              <i class="fab fa-linkedin-in text-white"></i>
+            </a>
+          </div>
         </div>
         
-        <div class="footer-col">
-          <h3>Enlaces Rápidos</h3>
-          <ul class="footer-links">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Resumen de Residuos</a></li>
-            <li><a href="#">Comunidad</a></li>
-            <li><a href="#">Reportes</a></li>
-            <li><a href="#">Contáctanos</a></li>
+        <div>
+          <h3 class="text-white text-xl font-bold mb-6">Enlaces Rápidos</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-chart-pie"></i> Resumen de Residuos</a></li>
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-users"></i> Comunidad</a></li>
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-file-alt"></i> Reportes</a></li>
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-envelope"></i> Contáctanos</a></li>
           </ul>
         </div>
         
-        <div class="footer-col">
-          <h3>Recursos</h3>
-          <ul class="footer-links">
-            <li><a href="#">Guías de Reciclaje</a></li>
-            <li><a href="#">Calendario de Eventos</a></li>
-            <li><a href="#">Material Educativo</a></li>
-            <li><a href="#">Preguntas Frecuentes</a></li>
-            <li><a href="#">Descargar App</a></li>
+        <div>
+          <h3 class="text-white text-xl font-bold mb-6">Recursos</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-book"></i> Guías de Reciclaje</a></li>
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-calendar-alt"></i> Calendario de Eventos</a></li>
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-download"></i> Material Educativo</a></li>
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-question-circle"></i> Preguntas Frecuentes</a></li>
+            <li><a href="#" class="flex items-center gap-2 hover:text-accent transition-colors"><i class="fas fa-mobile-alt"></i> Descargar App</a></li>
           </ul>
         </div>
         
-        <div class="footer-col">
-          <h3>Contacto</h3>
-          <ul class="footer-links">
-            <li><i class="fas fa-map-marker-alt"></i> Mercado Mayorista, Trujillo</li>
-            <li><i class="fas fa-phone"></i> (044) 123-4567</li>
-            <li><i class="fas fa-envelope"></i> info@ecogestiontrujillo.com</li>
+        <div>
+          <h3 class="text-white text-xl font-bold mb-6">Contacto</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <i class="fas fa-map-marker-alt mt-1 text-accent"></i>
+              <span>Mercado Mayorista, Trujillo</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-phone text-accent"></i>
+              <span>(044) 123-4567</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fas fa-envelope text-accent"></i>
+              <span>info@ecogestiontrujillo.com</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fas fa-clock mt-1 text-accent"></i>
+              <span>Lunes a Sábado: 8:00 AM - 6:00 PM</span>
+            </li>
           </ul>
         </div>
       </div>
       
-      <div class="footer-bottom">
-        <p>&copy; 2023 EcoGestión Trujillo. Todos los derechos reservados.</p>
+      <div class="pt-8 border-t border-gray-800 text-center">
+        <p>&copy; 2025 EcoGestión Trujillo. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>
   
+  <!-- Botón para volver arriba -->
+  <div id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center cursor-pointer opacity-0 invisible transition-all duration-300 shadow-lg hover:bg-primaryDark hover:shadow-xl">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
   <script>
-    // Animación para elementos al hacer scroll
-    document.addEventListener('DOMContentLoaded', function() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      document.querySelectorAll('.animate-card').forEach(el => {
-        observer.observe(el);
+    // Menú móvil
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    const overlay = document.getElementById('overlay');
+    const closeMenu = document.getElementById('closeMenu');
+    
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.remove('right-[-100%]');
+      navLinks.classList.add('right-0');
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+    
+    function closeMobileMenu() {
+      navLinks.classList.remove('right-0');
+      navLinks.classList.add('right-[-100%]');
+      overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    
+    // Botón para volver arriba
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+      } else {
+        backToTop.classList.remove('opacity-100', 'visible');
+        backToTop.classList.add('opacity-0', 'invisible');
+      }
+    });
+    
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
       });
+    });
+    
+    // Animación de elementos al hacer scroll
+    const animateCards = document.querySelectorAll('.animate-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    
+    animateCards.forEach(card => {
+      observer.observe(card);
+    });
+    
+    // Formulario de contacto
+    const contactForm = document.getElementById('contactForm');
+    
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Simulación de envío exitoso
+      alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
+      contactForm.reset();
+    });
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Mostrar mensaje de éxito
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+      submitBtn.disabled = true;
+      
+      setTimeout(() => {
+        // Crear elemento de éxito
+        const successDiv = document.createElement('div');
+        successDiv.className = 'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center';
+        successDiv.innerHTML = `
+          <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+          <div>
+            <strong>¡Mensaje enviado con éxito!</strong>
+            <p class="text-sm">Nos pondremos en contacto contigo en menos de 24 horas.</p>
+          </div>
+        `;
+        
+        // Insertar antes del formulario
+        this.parentNode.insertBefore(successDiv, this);
+        
+        // Restaurar botón
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        
+        // Limpiar formulario
+        this.reset();
+        
+        // Eliminar mensaje después de 5 segundos
+        setTimeout(() => {
+          successDiv.remove();
+        }, 5000);
+      }, 1500);
     });
   </script>
 </body>

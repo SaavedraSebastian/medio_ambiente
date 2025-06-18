@@ -1,146 +1,613 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Waste Management Overview</title>
-  <link rel="stylesheet" href="styles1.css">
+  <title>EcoGestión Trujillo | Gestión Sostenible de Residuos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10b981',
+            secondary: '#047857',
+            accent: '#059669',
+            dark: '#064e3b',
+            light: '#d1fae5'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 100%);
+    }
+    
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.9) 0%, rgba(16, 185, 129, 0.8) 100%);
+    }
+    
+    .waste-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .process-step::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(to right, #10b981, #059669);
+      z-index: 0;
+    }
+    
+    @media (max-width: 768px) {
+      .process-step::before {
+        display: none;
+      }
+    }
+    
+    .card-icon {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+    }
+    
+    .nav-link {
+      position: relative;
+      padding-bottom: 5px;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: #10b981;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .stats-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid #10b981;
+    }
+    
+    .stats-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .earth-icon {
+      animation: spin 20s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, #10b981, #047857);
+      border-radius: 2px;
+    }
+    
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+      border-radius: 16px;
+    }
+  </style>
 </head>
-<body>
-
-  <nav class="navbar">
-    <div class="logo">🌱 EcoGestion Trujillo</div>
-    <ul class="nav-links">
-      <li><a href="#" class="active">Waste Overview</a></li>
-      <li><a href="Comunidad.html">Comunidad</a></li>
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
+<body class="min-h-screen bg-gray-50">
+  <!-- Barra de navegación -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="text-primary text-2xl mr-2 animate-float">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">Eco<span class="text-primary">Gestión</span> Trujillo</span>
+      </div>
+      
+      <!-- Menú para escritorio -->
+      <div class="hidden md:flex space-x-8">
+        <a href ="index.html" class="nav-link text-gray-600 hover:text-primary transition duration-300">Inicio</a>
+        <a href="#" class="nav-link text-primary font-semibold">Resumen</a>
+        <a href="Comunidad.html" class="nav-link text-gray-600 hover:text-primary transition duration-300">Comunidad</a>
+        <a href="#" class="nav-link text-gray-600 hover:text-primary transition duration-300">Dashboard</a>
+        <a href="#" class="nav-link text-gray-600 hover:text-primary transition duration-300">Centros</a>
+        <a href="#" class="nav-link text-gray-600 hover:text-primary transition duration-300">Contacto</a>
+        <button class="bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
+          Iniciar Sesión
+        </button>
+      </div>
+      
+      <!-- Menú para móviles -->
+      <div class="md:hidden">
+        <button id="menu-toggle" class="text-gray-600 hover:text-primary focus:outline-none">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Menú móvil desplegable -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 border-t shadow-lg">
+      <a href="#" class="block py-3 text-primary font-semibold border-l-4 border-primary pl-3">Resumen</a>
+      <a href="Comunidad.html" class="block py-3 text-gray-600 hover:text-primary pl-3 border-l-4 border-white hover:border-primary transition">Comunidad</a>
+      <a href="#" class="block py-3 text-gray-600 hover:text-primary pl-3 border-l-4 border-white hover:border-primary transition">Dashboard</a>
+      <a href="#" class="block py-3 text-gray-600 hover:text-primary pl-3 border-l-4 border-white hover:border-primary transition">Centros</a>
+      <a href="#" class="block py-3 text-gray-600 hover:text-primary pl-3 border-l-4 border-white hover:border-primary transition">Contacto</a>
+      <button class="mt-4 w-full bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-full transition duration-300">
+        Iniciar Sesión
+      </button>
+    </div>
   </nav>
 
-  <header class="hero">
-    <div class="hero-overlay">
-      <h1><span>Understanding</span> <span class="highlight">Sustainable Waste Management</span></h1>
-      <p>Learn about the importance of proper waste disposal, recycling, and how you can contribute to a greener planet.</p>
-      <button>Explore Community Initiatives</button>
+  <!-- Hero Section con imagen impactante -->
+  <header class="relative bg-cover bg-center h-[80vh] flex items-center" style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=1473&q=80')">
+    <div class="hero-overlay absolute inset-0"></div>
+    <div class="container mx-auto px-4 relative z-10 text-white">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          Transformando <span class="text-light">Residuos</span> en <span class="text-primary">Recursos</span>
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 max-w-xl">
+          Únete a la revolución verde de Trujillo. Aprende, participa y contribuye a un futuro sostenible para nuestra ciudad.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button class="bg-primary hover:bg-secondary text-white font-bold py-4 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+            Explorar Iniciativas
+          </button>
+          <button class="bg-transparent border-2 border-white hover:bg-white/20 text-white font-bold py-4 px-8 rounded-full transition duration-300">
+            <i class="fas fa-play-circle mr-2"></i> Ver Video
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Elemento decorativo flotante -->
+    <div class="absolute bottom-10 right-10 hidden lg:block animate-float">
+      <div class="bg-white/20 backdrop-blur-sm rounded-full p-4">
+        <i class="fas fa-recycle text-4xl text-light"></i>
+      </div>
     </div>
   </header>
 
-  <section class="section">
-    <h2>Why Waste Management Matters</h2>
-    <p class="section-subtitle">Proper waste management is crucial for environmental health, resource conservation, and community well-being.</p>
-
-    <div class="cards-row">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x200/?forest" alt="Protecting Our Planet">
-        <h3>Protecting Our Planet</h3>
-        <p>Effective waste management prevents pollution of our air, water, and soil. It reduces emissions, protects biodiversity, and preserves habitats.</p>
-      </div>
-      <div class="card">
-        <img src="https://source.unsplash.com/300x200/?hands,plant" alt="Conserving Resources">
-        <h3>Conserving Valuable Resources</h3>
-        <p>Recycling and composting allow us to recover valuable materials and turn them into useful products, reducing the need for new raw materials.</p>
-      </div>
-    </div>
-
-    <div class="cards-row">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x200/?park" alt="Healthy Communities">
-        <h3>Fostering Healthy Communities</h3>
-        <p>Proper waste disposal improves public health and enhances the cleanliness and appeal of neighborhoods.</p>
-      </div>
-      <div class="card">
-        <img src="https://source.unsplash.com/300x200/?business,team" alt="Economic Benefits">
-        <h3>Driving Economic Benefits</h3>
-        <p>Waste management creates jobs, reduces landfill costs, and generates revenue through recycling and reuse in a circular economy.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Understanding Different Waste Types</h2>
-    <p class="section-subtitle">Proper separation is key. Identify common waste categories and learn how to dispose of them responsibly.</p>
-    
-    <div class="grid">
-      <div class="waste-card">
-        <h4>Organic Waste</h4>
-        <img src="https://source.unsplash.com/300x200/?organic,compost" alt="">
-        <p>Food scraps, garden waste, and biodegradable materials perfect for composting.</p>
-        <button>Learn More</button>
-      </div>
-      <div class="waste-card">
-        <h4>Plastic</h4>
-        <img src="https://source.unsplash.com/300x200/?plastic,bottles" alt="">
-        <p>Bottles, containers, and packaging. Learn how to identify recyclable plastics.</p>
-        <button>Learn More</button>
-      </div>
-      <div class="waste-card">
-        <h4>Paper & Cardboard</h4>
-        <img src="https://source.unsplash.com/300x200/?paper,cardboard" alt="">
-        <p>Newspapers, magazines, boxes. Keep them dry and clean for effective recycling.</p>
-        <button>Learn More</button>
-      </div>
-      <div class="waste-card">
-        <h4>Glass</h4>
-        <img src="https://source.unsplash.com/300x200/?glass,bottles" alt="">
-        <p>Separate by color for better recycling results.</p>
-        <button>Learn More</button>
-      </div>
-      <div class="waste-card">
-        <h4>Metal</h4>
-        <img src="https://source.unsplash.com/300x200/?metal,cans" alt="">
-        <p>Aluminum cans, tin cans, and metal scraps. Rinse well before disposal.</p>
-        <button>Learn More</button>
-      </div>
-      <div class="waste-card">
-        <h4>E-Waste</h4>
-        <img src="https://source.unsplash.com/300x200/?electronics" alt="">
-        <p>Electronics and batteries need special handling for proper disposal.</p>
-        <button>Learn More</button>
-      </div>
-      <div class="waste-card">
-        <h4>Hazardous Waste</h4>
-        <img src="https://source.unsplash.com/300x200/?hazardous,chemicals" alt="">
-        <p>Chemicals and medical waste need safe, specific disposal methods.</p>
-        <button>Learn More</button>
+  <!-- Estadísticas destacadas con imágenes -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="stats-card bg-white p-6 rounded-lg shadow-md relative overflow-hidden">
+          <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80')"></div>
+          <div class="relative z-10">
+            <div class="text-3xl font-bold text-primary">85%</div>
+            <div class="text-gray-600 mt-2">Residuos reciclables</div>
+          </div>
+        </div>
+        <div class="stats-card bg-white p-6 rounded-lg shadow-md relative overflow-hidden">
+          <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80')"></div>
+          <div class="relative z-10">
+            <div class="text-3xl font-bold text-primary">32K</div>
+            <div class="text-gray-600 mt-2">Ciudadanos involucrados</div>
+          </div>
+        </div>
+        <div class="stats-card bg-white p-6 rounded-lg shadow-md relative overflow-hidden">
+          <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp9UMALkskHL6bAcwq9Y178VGOjeGggpVl-A&s')"></div>
+          <div class="relative z-10">
+            <div class="text-3xl font-bold text-primary">120+</div>
+            <div class="text-gray-600 mt-2">Puntos de reciclaje</div>
+          </div>
+        </div>
+        <div class="stats-card bg-white p-6 rounded-lg shadow-md relative overflow-hidden">
+          <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://usil-blog.s3.amazonaws.com/PROD/blog/image/manejo-de-residuos-1-scaled.jpg')"></div>
+          <div class="relative z-10">
+            <div class="text-3xl font-bold text-primary">45%</div>
+            <div class="text-gray-600 mt-2">Reducción de basura</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <h2>The 3 Rs of Waste Hierarchy</h2>
-    <p class="section-subtitle">Reduce, Reuse, Recycle: The foundational principles for a sustainable approach to waste.</p>
+  <!-- Sección Importancia con imágenes -->
+  <section class="py-16 bg-gradient-to-br from-[#f0fdf4] to-[#ecfdf5]">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">¿Por qué es Importante?</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          La gestión adecuada de residuos es crucial para la salud ambiental, la conservación de recursos y el bienestar de la comunidad.
+        </p>
+      </div>
 
-    <details>
-      <summary>Reduce: Minimizing Waste Generation</summary>
-      <p>Focus on buying only what you need and avoiding single-use products.</p>
-    </details>
-    <details>
-      <summary>Reuse: Extending Product Lifespan</summary>
-      <p>Find new uses for items instead of discarding them immediately.</p>
-    </details>
-    <details>
-      <summary>Recycle: Transforming Waste into New Resources</summary>
-      <p>Recycle materials into new products to reduce raw material extraction.</p>
-    </details>
-  </section>
-
-  <section class="section">
-    <h2>How Recycling Works: A Simplified Process</h2>
-    <p class="section-subtitle">From your bin to a new product – understand the journey of recycled materials.</p>
-    <div class="recycling-process">
-      <img src="https://cdn.pixabay.com/photo/2016/02/19/11/53/recycling-1205166_1280.png" alt="Recycling Process">
-      <div>
-        <h3>The Journey of Recycled Materials</h3>
-        <p>Recycling involves collection, sorting, processing (cleaning, shredding, melting), and manufacturing new products from recycled content.</p>
-        <button>Back to Homepage</button>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition duration-500">
+          <div class="h-48 rounded-xl mb-6 overflow-hidden">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYEWGPLVjSw_BJ2rUWkvIiGdL_87qVnmvN7w&s" alt="Protección Planetaria" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Protección Planetaria</h3>
+          <p class="text-gray-600 text-center">
+            Previene la contaminación de nuestro aire, agua y suelo. Reduce emisiones, protege la biodiversidad y preserva hábitats naturales.
+          </p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition duration-500">
+          <div class="h-48 rounded-xl mb-6 overflow-hidden">
+            <img src="https://www.atv.pe/wp-content/uploads/2021/10/economia-circular.jpg" alt="Economía Circular" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Economía Circular</h3>
+          <p class="text-gray-600 text-center">
+            Transforma residuos en recursos valiosos, reduciendo la extracción de materias primas y creando oportunidades económicas.
+          </p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition duration-500">
+          <div class="h-48 rounded-xl mb-6 overflow-hidden">
+            <img src="https://img.freepik.com/vector-premium/iconos-cuidado-comunitario-e-ilustracion-ayuda-al-equipo_911078-7801.jpg?semt=ais_hybrid&w=740" alt="Salud Comunitaria" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Salud Comunitaria</h3>
+          <p class="text-gray-600 text-center">
+            Reduce enfermedades relacionadas con residuos y crea espacios urbanos más limpios, seguros y agradables para todos.
+          </p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition duration-500">
+          <div class="h-48 rounded-xl mb-6 overflow-hidden">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVvq0yUpe1RCMPIY58D4WHI4Uh0UVlW842Ug&s" alt="Innovación Sostenible" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Innovación Sostenible</h3>
+          <p class="text-gray-600 text-center">
+            Impulsa la creación de tecnologías verdes y soluciones creativas para los desafíos ambientales de nuestra ciudad.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer>
-    <p>© 2023 EcoGestion Trujillo</p>
+  <!-- Tipos de Residuos con imágenes -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Clasificación de Residuos</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Separa correctamente tus residuos para maximizar el reciclaje y minimizar el impacto ambiental.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="waste-card bg-white rounded-2xl overflow-hidden shadow-xl transition duration-500 group">
+          <div class="h-48 overflow-hidden relative">
+            <img src="https://www.cocinaconalegria.com/wp-content/uploads/2022/05/que-son-los-productos-organicos.jpg" alt="Residuos Orgánicos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <div class="image-overlay"></div>
+            <div class="absolute bottom-0 left-0 p-4 text-white">
+              <h4 class="text-xl font-bold">Orgánicos</h4>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div class="bg-green-100 text-primary text-sm font-bold py-1 px-3 rounded-full">Compostable</div>
+              <div class="text-primary text-2xl"><i class="fas fa-apple-alt"></i></div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Restos de comida, desechos de jardín y materiales biodegradables perfectos para compostaje.
+            </p>
+            <button class="text-primary font-medium hover:underline flex items-center">
+              Ver centros de compostaje <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="waste-card bg-white rounded-2xl overflow-hidden shadow-xl transition duration-500 group">
+          <div class="h-48 overflow-hidden relative">
+            <img src="https://cruce.iteso.mx/wp-content/uploads/2023/06/CONTAMINACION-POR-PLASTICOS.jpg" alt="Plástico" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <div class="image-overlay"></div>
+            <div class="absolute bottom-0 left-0 p-4 text-white">
+              <h4 class="text-xl font-bold">Plástico</h4>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div class="bg-blue-100 text-blue-600 text-sm font-bold py-1 px-3 rounded-full">Reciclable</div>
+              <div class="text-blue-500 text-2xl"><i class="fas fa-wine-bottle"></i></div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Botellas, envases y embalajes. Aprende a identificar plásticos reciclables y sus códigos.
+            </p>
+            <button class="text-blue-500 font-medium hover:underline flex items-center">
+              Guía de plásticos <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="waste-card bg-white rounded-2xl overflow-hidden shadow-xl transition duration-500 group">
+          <div class="h-48 overflow-hidden relative">
+            <img src="https://inforegion.pe/wp-content/uploads/2025/04/image-96-1.webp" alt="Residuos Electrónicos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <div class="image-overlay"></div>
+            <div class="absolute bottom-0 left-0 p-4 text-white">
+              <h4 class="text-xl font-bold">Electrónicos</h4>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div class="bg-gray-100 text-gray-700 text-sm font-bold py-1 px-3 rounded-full">Especial</div>
+              <div class="text-gray-600 text-2xl"><i class="fas fa-laptop"></i></div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Dispositivos electrónicos y baterías requieren manejo especial para su eliminación segura.
+            </p>
+            <button class="text-gray-700 font-medium hover:underline flex items-center">
+              Puntos de recolección <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="waste-card bg-white rounded-2xl overflow-hidden shadow-xl transition duration-500 group">
+          <div class="h-48 overflow-hidden relative">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2-nRW5AOG4CGi84JB9x42S4w2PZIEfHxT5g&s" alt="Residuos Peligrosos" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <div class="image-overlay"></div>
+            <div class="absolute bottom-0 left-0 p-4 text-white">
+              <h4 class="text-xl font-bold">Peligrosos</h4>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div class="bg-red-100 text-red-600 text-sm font-bold py-1 px-3 rounded-full">Peligroso</div>
+              <div class="text-red-500 text-2xl"><i class="fas fa-skull-crossbones"></i></div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              Productos químicos, médicos y pilas necesitan métodos de eliminación seguros y específicos.
+            </p>
+            <button class="text-red-500 font-medium hover:underline flex items-center">
+              Manejo seguro <i class="fas fa-arrow-right ml-2 text-sm"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Las 3R con imágenes -->
+  <section class="py-16 bg-gradient-to-tr from-[#e6fffa] to-[#f0fdf9]">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Las 3R de la Sostenibilidad</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Reducir, Reutilizar, Reciclar: el camino hacia un consumo responsable y una ciudad más limpia.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg text-center hover:shadow-xl transition duration-300">
+          <div class="h-48 rounded-xl mb-6 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1528323273322-d81458248d40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1401&q=80" alt="Reducir" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Reducir</h3>
+          <p class="text-gray-600 mb-6">
+            Minimiza tu consumo y elige productos con menos empaques. La mejor forma de gestionar residuos es no generarlos.
+          </p>
+          <ul class="text-left text-gray-600 space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Compra a granel y evita plásticos de un solo uso</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Prefiere productos duraderos y de calidad</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Planifica tus compras para evitar desperdicios</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-lg text-center hover:shadow-xl transition duration-300">
+          <div class="h-48 rounded-xl mb-6 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Reutilizar" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Reutilizar</h3>
+          <p class="text-gray-600 mb-6">
+            Da nueva vida a los objetos antes de desecharlos. La creatividad es tu mejor aliada para reducir residuos.
+          </p>
+          <ul class="text-left text-gray-600 space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Repara antes de reemplazar</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Transforma objetos en nuevos usos</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Donar lo que ya no usas</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-lg text-center hover:shadow-xl transition duration-300">
+          <div class="h-48 rounded-xl mb-6 overflow-hidden">
+            <img src="https://services.meteored.com/img/article/reciclar-reducir-reutilizar-manos-a-la-obra-en-el-marco-del-dia-mundial-del-reciclaje-1715748089323_1280.jpg" alt="Reciclar" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Reciclar</h3>
+          <p class="text-gray-600 mb-6">
+            Convierte tus residuos en nuevos recursos. Separa correctamente y lleva a puntos de reciclaje.
+          </p>
+          <ul class="text-left text-gray-600 space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Separa por materiales</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Limpia y seca los reciclables</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+              <span>Utiliza los contenedores adecuados</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+ 
+
+  <!-- Footer con imágenes -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center mb-6">
+            <div class="text-primary text-3xl mr-3">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <span class="text-2xl font-bold">EcoGestión Trujillo</span>
+          </div>
+          <p class="text-gray-300 mb-6">
+            Trabajando por una ciudad más limpia y sostenible desde 2015. Nuestra misión es transformar la gestión de residuos en Trujillo a través de la innovación, educación y participación comunitaria.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-primary transition duration-300">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-primary transition duration-300">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-primary transition duration-300">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-primary transition duration-300">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Navegación</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Inicio</a></li>
+            <li><a href="Comunidad.html" class="text-gray-300 hover:text-primary transition duration-300">Comunidad</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Dashboard</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Centros de Reciclaje</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Eventos</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Recursos</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Guías de Reciclaje</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Talleres Virtuales</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Material Educativo</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Blog</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-primary transition duration-300">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Contáctanos</h3>
+          <ul class="space-y-3 text-gray-300">
+            <li class="flex items-start">
+              <i class="fas fa-map-marker-alt mt-1 mr-3 text-primary"></i>
+              <span>Av. América Sur 1234, Trujillo, Perú</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-phone mt-1 mr-3 text-primary"></i>
+              <span>+51 44 123 456</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-envelope mt-1 mr-3 text-primary"></i>
+              <span>info@ecogestiontrujillo.pe</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-clock mt-1 mr-3 text-primary"></i>
+              <span>Lun-Vie: 8:00 AM - 6:00 PM</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+        <p>&copy; 2023 EcoGestión Trujillo. Todos los derechos reservados. | <a href="#" class="hover:text-primary">Política de Privacidad</a> | <a href="#" class="hover:text-primary">Términos de Servicio</a></p>
+      </div>
+    </div>
   </footer>
 
+  <script>
+    // Toggle mobile menu
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('mobile-menu');
+      const toggleButton = document.getElementById('menu-toggle');
+      
+      if (!menu.contains(event.target) && !toggleButton.contains(event.target) && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+      }
+    });
+    
+    // Animation for stats cards
+    const statsCards = document.querySelectorAll('.stats-card');
+    statsCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
 </body>
 </html>
