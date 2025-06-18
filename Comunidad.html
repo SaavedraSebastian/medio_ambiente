@@ -1,124 +1,554 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EcoGestión Trujillo - Comunidad</title>
-  <link rel="stylesheet" href="styles2.css" />
+  <title>Comunidad EcoGestión Trujillo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 100%);
+    }
+    
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.9) 0%, rgba(16, 185, 129, 0.8) 100%);
+    }
+    
+    .event-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, #10b981, #047857);
+      border-radius: 2px;
+    }
+    
+    .story-card {
+      transition: all 0.3s ease;
+    }
+    
+    .story-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .resource-card {
+      transition: all 0.3s ease;
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .partner-logo {
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    
+    .partner-logo:hover {
+      filter: grayscale(0);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    
+    .nav-link {
+      position: relative;
+      padding-bottom: 5px;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: #10b981;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
 </head>
-<body>
-
-  <nav class="navbar">
-    <div class="logo">🌱 EcoGestion Trujillo</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="#">Waste Overview</a></li>
-      <li><a class="active" href="#">Community</a></li>
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
+<body class="min-h-screen bg-gray-50">
+  <!-- Barra de navegación -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="text-emerald-500 text-2xl mr-2 animate-float">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">Eco<span class="text-emerald-500">Gestión</span> Trujillo</span>
+      </div>
+      
+      <!-- Menú para escritorio -->
+      <div class="hidden md:flex space-x-8">
+        <a href="index.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-300">Inicio</a>
+        <a href="#" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-300">Resumen</a>
+        <a href="#" class="nav-link text-emerald-500 font-semibold">Comunidad</a>
+        <a href="#" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-300">Dashboard</a>
+        <a href="#" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-300">Contacto</a>
+        <button class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
+          Iniciar Sesión
+        </button>
+      </div>
+      
+      <!-- Menú para móviles -->
+      <div class="md:hidden">
+        <button id="menu-toggle" class="text-gray-600 hover:text-emerald-500 focus:outline-none">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Menú móvil desplegable -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 border-t shadow-lg">
+      <a href="index.html" class="block py-3 text-gray-600 hover:text-emerald-500 pl-3 border-l-4 border-white hover:border-emerald-500 transition">Inicio</a>
+      <a href="#" class="block py-3 text-gray-600 hover:text-emerald-500 pl-3 border-l-4 border-white hover:border-emerald-500 transition">Resumen</a>
+      <a href="#" class="block py-3 text-emerald-500 font-semibold border-l-4 border-emerald-500 pl-3">Comunidad</a>
+      <a href="#" class="block py-3 text-gray-600 hover:text-emerald-500 pl-3 border-l-4 border-white hover:border-emerald-500 transition">Dashboard</a>
+      <a href="#" class="block py-3 text-gray-600 hover:text-emerald-500 pl-3 border-l-4 border-white hover:border-emerald-500 transition">Contacto</a>
+      <button class="mt-4 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+        Iniciar Sesión
+      </button>
+    </div>
   </nav>
 
-  <header class="hero">
-    <div class="overlay">
-      <h1>Together, We Build a Greener Trujillo</h1>
-      <p>Join EcoGestión Trujillo’s vibrant community initiatives, events, and educational programs to make a lasting impact on waste management.</p>
-      <button>Discover Community Events</button>
+  <!-- Hero Section -->
+  <header class="relative bg-cover bg-center h-[60vh] flex items-center" style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=1473&q=80')">
+    <div class="hero-overlay absolute inset-0"></div>
+    <div class="container mx-auto px-4 relative z-10 text-white text-center">
+      <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+        Juntos Construimos un Trujillo Más Verde
+      </h1>
+      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+        Únete a las iniciativas comunitarias, eventos y programas educativos de EcoGestión Trujillo para crear un impacto duradero en la gestión de residuos.
+      </p>
+      <button class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+        Descubre Eventos Comunitarios
+      </button>
     </div>
   </header>
 
-  <section class="events-stories">
-    <div class="events">
-      <h2>Upcoming Community Events & Initiatives</h2>
-      <div class="event-grid">
-        <!-- Evento 1 -->
-        <div class="event-card">
-          <img src="https://source.unsplash.com/400x200/?river,cleanup" alt="">
-          <h3>Trujillo Riverside Clean-up</h3>
-          <p class="meta">🗓 October 26, 2024 <br>📍 Moche River Banks, Trujillo</p>
-          <p>Join us for a community clean-up along the Moche River to remove plastic and debris, restoring its natural beauty.</p>
-          <button>Learn More</button>
+  <!-- Eventos e Historias -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Eventos e Iniciativas Comunitarias</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Participa en nuestras actividades y contribuye a un Trujillo más limpio y sostenible.
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Evento 1 -->
+            <div class="event-card bg-white rounded-2xl overflow-hidden shadow-lg transition duration-500">
+              <div class="h-48 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Limpieza de río" class="w-full h-full object-cover">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Limpieza de las Riberas del Río Moche</h3>
+                <div class="flex items-center text-gray-600 mb-4">
+                  <i class="fas fa-calendar-alt mr-2"></i>
+                  <span>26 de Octubre, 2024</span>
+                  <i class="fas fa-map-marker-alt ml-4 mr-2"></i>
+                  <span>Riberas del Río Moche, Trujillo</span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  Únete a nosotros para una limpieza comunitaria a lo largo del río Moche para eliminar plásticos y desechos, restaurando su belleza natural.
+                </p>
+                <button class="text-emerald-500 font-medium hover:underline flex items-center">
+                  Más información <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Evento 2 -->
+            <div class="event-card bg-white rounded-2xl overflow-hidden shadow-lg transition duration-500">
+              <div class="h-48 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1517191434949-5e90cd67d2b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Taller de compostaje" class="w-full h-full object-cover">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Taller de Compostaje para Principiantes</h3>
+                <div class="flex items-center text-gray-600 mb-4">
+                  <i class="fas fa-calendar-alt mr-2"></i>
+                  <span>9 de Noviembre, 2024</span>
+                  <i class="fas fa-map-marker-alt ml-4 mr-2"></i>
+                  <span>Jardín Botánico, Trujillo</span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  Aprende los fundamentos del compostaje casero, transformando tus residuos orgánicos en tierra fértil para tu jardín.
+                </p>
+                <button class="text-emerald-500 font-medium hover:underline flex items-center">
+                  Más información <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Evento 3 -->
+            <div class="event-card bg-white rounded-2xl overflow-hidden shadow-lg transition duration-500">
+              <div class="h-48 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Día del reciclaje" class="w-full h-full object-cover">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Día de Concienciación sobre el Reciclaje</h3>
+                <div class="flex items-center text-gray-600 mb-4">
+                  <i class="fas fa-calendar-alt mr-2"></i>
+                  <span>23 de Noviembre, 2024</span>
+                  <i class="fas fa-map-marker-alt ml-4 mr-2"></i>
+                  <span>Plaza de Armas, Trujillo</span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  Evento interactivo para educar sobre técnicas adecuadas de reciclaje, separación de residuos y consumo responsable.
+                </p>
+                <button class="text-emerald-500 font-medium hover:underline flex items-center">
+                  Más información <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Evento 4 -->
+            <div class="event-card bg-white rounded-2xl overflow-hidden shadow-lg transition duration-500">
+              <div class="h-48 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80" alt="Feria ecológica" class="w-full h-full object-cover">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Feria de Productos Ecológicos</h3>
+                <div class="flex items-center text-gray-600 mb-4">
+                  <i class="fas fa-calendar-alt mr-2"></i>
+                  <span>7 de Diciembre, 2024</span>
+                  <i class="fas fa-map-marker-alt ml-4 mr-2"></i>
+                  <span>Mercado Mayorista, Trujillo</span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  Descubre productos sostenibles locales y aprende a reducir tu huella ambiental.
+                </p>
+                <button class="text-emerald-500 font-medium hover:underline flex items-center">
+                  Más información <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Evento 2 -->
-        <div class="event-card">
-          <img src="https://source.unsplash.com/400x200/?compost,garden" alt="">
-          <h3>Composting Workshop for Beginners</h3>
-          <p class="meta">🗓 November 9, 2024 <br>📍 Botanic Garden, Trujillo</p>
-          <p>Learn the basics of home composting, turning your organic waste into rich soil for your garden.</p>
-          <button>Learn More</button>
-        </div>
-        <!-- Evento 3 -->
-        <div class="event-card">
-          <img src="https://source.unsplash.com/400x200/?recycling,awareness" alt="">
-          <h3>Recycling Awareness Day</h3>
-          <p class="meta">🗓 November 23, 2024 <br>📍 Plaza de Armas, Trujillo</p>
-          <p>An interactive event to educate on proper recycling techniques, waste separation, and responsible consumption.</p>
-          <button>Learn More</button>
-        </div>
-        <!-- Evento 4 -->
-        <div class="event-card">
-          <img src="https://source.unsplash.com/400x200/?eco-market,fair" alt="">
-          <h3>Eco-Friendly Market Fair</h3>
-          <p class="meta">🗓 December 7, 2024 <br>📍 Mercado Mayorista, Trujillo</p>
-          <p>Discover local sustainable products and learn about reducing your environmental footprint.</p>
-          <button>Learn More</button>
+        
+        <!-- Historias de éxito -->
+        <div class="bg-emerald-50 rounded-2xl p-8 shadow-lg">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Historias Inspiradoras</h2>
+            <p class="text-gray-600">
+              Descubre cómo nuestra comunidad está haciendo la diferencia
+            </p>
+          </div>
+          
+          <div class="space-y-6">
+            <div class="story-card bg-white rounded-2xl p-6 shadow-md">
+              <div class="flex items-start mb-4">
+                <div class="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center text-emerald-500 text-xl mr-4">
+                  <i class="fas fa-store"></i>
+                </div>
+                <div>
+                  <p class="text-gray-600 italic">
+                    "EcoGestión nos proporcionó las herramientas y el apoyo comunitario que necesitábamos para reducir drásticamente los residuos alimentarios de nuestro mercado. ¡Ha sido un cambio radical para la sostenibilidad!"
+                  </p>
+                  <span class="font-semibold text-emerald-500">- María López, Comerciante Local</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="story-card bg-white rounded-2xl p-6 shadow-md">
+              <div class="flex items-start mb-4">
+                <div class="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center text-emerald-500 text-xl mr-4">
+                  <i class="fas fa-hands-helping"></i>
+                </div>
+                <div>
+                  <p class="text-gray-600 italic">
+                    "Ser parte de las jornadas de limpieza de EcoGestión me dio un sentido de propósito y contribuyó directamente a una ciudad más limpia. ¡Recomiendo totalmente involucrarse!"
+                  </p>
+                  <span class="font-semibold text-emerald-500">- Carlos Sánchez, Voluntario</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="story-card bg-white rounded-2xl p-6 shadow-md">
+              <div class="flex items-start mb-4">
+                <div class="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center text-emerald-500 text-xl mr-4">
+                  <i class="fas fa-seedling"></i>
+                </div>
+                <div>
+                  <p class="text-gray-600 italic">
+                    "Los recursos educativos sobre compostaje transformaron mi enfoque de los residuos en casa. ¡Mi jardín nunca ha estado más saludable!"
+                  </p>
+                  <span class="font-semibold text-emerald-500">- Ana García, Residente</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <aside class="stories">
-      <h2>Inspiring Success Stories</h2>
-      <div class="story">
-        <p>"EcoGestión provided the tools and community support we needed to drastically reduce our market’s food waste. It’s a game-changer for sustainability!"</p>
-        <span>- María López, Local Merchant</span>
-      </div>
-      <div class="story">
-        <p>"Being part of EcoGestión’s clean-up drives gave me a sense of purpose and directly contributed to a cleaner city. Highly recommend getting involved!"</p>
-        <span>- Carlos Sánchez, Volunteer</span>
-      </div>
-      <div class="story">
-        <p>"The educational resources on composting transformed my approach to waste at home. My garden has never been healthier!"</p>
-        <span>- Ana García, Resident</span>
-      </div>
-    </aside>
   </section>
 
-  <section class="partners-resources">
-    <div class="partners">
-      <h2>Our Valued Partners</h2>
-      <div class="partner">
-        <strong>GreenFuture Foundation</strong>
-        <p>A non-profit dedicated to environmental education and conservation initiatives across Peru.</p>
-      </div>
-      <div class="partner">
-        <strong>RecycleTrujillo S.A.C.</strong>
-        <p>Local recycling plant transforming sorted waste into valuable raw materials for new products.</p>
-      </div>
-      <div class="partner">
-        <strong>Sustainable City Council</strong>
-        <p>The municipal body championing policies and programs for a greener, more sustainable Trujillo.</p>
+  <!-- Socios y Recursos -->
+  <section class="py-16 bg-gradient-to-br from-emerald-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Socios -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Nuestros Socios Valiosos</h2>
+            <p class="text-gray-600">
+              Organizaciones que colaboran con nosotros para un Trujillo más sostenible
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-emerald-50 rounded-xl p-6 text-center">
+              <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-tree text-3xl text-emerald-500"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Fundación Futuro Verde</h3>
+              <p class="text-gray-600 text-sm">
+                Organización sin fines de lucro dedicada a la educación ambiental y conservación en todo Perú.
+              </p>
+            </div>
+            
+            <div class="bg-emerald-50 rounded-xl p-6 text-center">
+              <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-recycle text-3xl text-emerald-500"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">ReciclaTrujillo S.A.C.</h3>
+              <p class="text-gray-600 text-sm">
+                Planta local de reciclaje que transforma residuos en materias primas para nuevos productos.
+              </p>
+            </div>
+            
+            <div class="bg-emerald-50 rounded-xl p-6 text-center">
+              <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-city text-3xl text-emerald-500"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Concejo Municipal Sostenible</h3>
+              <p class="text-gray-600 text-sm">
+                Organismo municipal que promueve políticas para un Trujillo más verde y sostenible.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recursos -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Recursos Educativos</h2>
+            <p class="text-gray-600">
+              Materiales para aprender más sobre gestión sostenible de residuos
+            </p>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="resource-card bg-emerald-50 rounded-xl p-4 hover:bg-emerald-100">
+              <div class="flex items-center">
+                <div class="bg-emerald-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800">Guía para una Vida con Residuos Cero</h3>
+                  <p class="text-sm text-gray-600">Consejos prácticos para reducir tu huella ambiental</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="resource-card bg-emerald-100 rounded-xl p-4 border-2 border-emerald-500">
+              <div class="flex items-center">
+                <div class="bg-emerald-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800">Infografía: Símbolos de Reciclaje Explicados</h3>
+                  <p class="text-sm text-gray-600">Entiende los códigos de reciclaje más comunes</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="resource-card bg-emerald-50 rounded-xl p-4 hover:bg-emerald-100">
+              <div class="flex items-center">
+                <div class="bg-emerald-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4">
+                  <i class="fas fa-video"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800">Video: El Poder de las Limpiezas Comunitarias</h3>
+                  <p class="text-sm text-gray-600">Impacto positivo de las jornadas de limpieza</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="resource-card bg-emerald-50 rounded-xl p-4 hover:bg-emerald-100">
+              <div class="flex items-center">
+                <div class="bg-emerald-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4">
+                  <i class="fas fa-school"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800">Guía: Iniciando un Programa de Reciclaje Escolar</h3>
+                  <p class="text-sm text-gray-600">Pasos para implementar reciclaje en instituciones educativas</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="resource-card bg-emerald-50 rounded-xl p-4 hover:bg-emerald-100">
+              <div class="flex items-center">
+                <div class="bg-emerald-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4">
+                  <i class="fas fa-newspaper"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800">Noticia: Mercado Local Reduce Residuos en 50%</h3>
+                  <p class="text-sm text-gray-600">Éxito de implementación de programa de gestión de residuos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="resources">
-      <h2>Educational Resources Hub</h2>
-      <div class="resource"><strong>📄 Article:</strong> Guide to Zero Waste Living <br><small>Read More</small></div>
-      <div class="resource highlighted"><strong>📊 Infographic:</strong> Recycling Symbols Explained <br><small>Read More</small></div>
-      <div class="resource"><strong>🎥 Video:</strong> The Power of Community Clean-ups <br><small>Read More</small></div>
-      <div class="resource"><strong>📘 Guide:</strong> Starting a School Recycling Program <br><small>Read More</small></div>
-      <div class="resource"><strong>📰 News:</strong> Local Market Achieves 50% Waste Reduction <br><small>Read More</small></div>
+  <!-- Llamada a la acción -->
+  <section class="py-16 bg-gradient-to-r from-emerald-500 to-emerald-600">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">¿Tienes una Idea? ¡Propon tu Iniciativa!</h2>
+      <p class="text-xl text-white/90 max-w-3xl mx-auto mb-10">
+        Tus ideas innovadoras pueden marcar una gran diferencia en los esfuerzos de gestión de residuos de nuestra comunidad. Envía tu propuesta y trabajemos juntos por un Trujillo más limpio.
+      </p>
+      <button class="bg-white text-emerald-500 font-bold py-4 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+        Propon tu Idea 💡
+      </button>
     </div>
   </section>
 
-  <section class="cta">
-    <h2>Have an Idea? Propose Your Initiative!</h2>
-    <p>Your innovative ideas can make a huge difference in our community's waste management efforts. Submit your proposal and let’s work together for a cleaner Trujillo.</p>
-    <button>Propose Your Idea 💡</button>
-  </section>
-
-  <footer>
-    <p>© 2023 EcoGestión Trujillo</p>
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center mb-6">
+            <div class="text-emerald-500 text-3xl mr-3">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <span class="text-2xl font-bold">EcoGestión Trujillo</span>
+          </div>
+          <p class="text-gray-300 mb-6">
+            Trabajando por una ciudad más limpia y sostenible desde 2015.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-emerald-500 transition duration-300">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-emerald-500 transition duration-300">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-emerald-500 transition duration-300">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-emerald-500 transition duration-300">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Enlaces</h3>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-gray-300 hover:text-emerald-500 transition duration-300">Inicio</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-emerald-500 transition duration-300">Resumen</a></li>
+            <li><a href="#" class="text-emerald-500">Comunidad</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-emerald-500 transition duration-300">Dashboard</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-emerald-500 transition duration-300">Contacto</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Recursos</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-300 hover:text-emerald-500 transition duration-300">Guías de Reciclaje</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-emerald-500 transition duration-300">Talleres</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-emerald-500 transition duration-300">Material Educativo</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-emerald-500 transition duration-300">Blog</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-emerald-500 transition duration-300">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Contacto</h3>
+          <ul class="space-y-3 text-gray-300">
+            <li class="flex items-start">
+              <i class="fas fa-map-marker-alt mt-1 mr-3 text-emerald-500"></i>
+              <span>Av. América Sur 1234, Trujillo, Perú</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-phone mt-1 mr-3 text-emerald-500"></i>
+              <span>+51 44 123 456</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-envelope mt-1 mr-3 text-emerald-500"></i>
+              <span>info@ecogestiontrujillo.pe</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+        <p>&copy; 2023 EcoGestión Trujillo. Todos los derechos reservados.</p>
+      </div>
+    </div>
   </footer>
 
+  <script>
+    // Toggle mobile menu
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('mobile-menu');
+      const toggleButton = document.getElementById('menu-toggle');
+      
+      if (!menu.contains(event.target) && !toggleButton.contains(event.target) && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+      }
+    });
+  </script>
 </body>
 </html>
