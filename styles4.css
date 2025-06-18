@@ -1,0 +1,130 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9fb;
+  color: #333;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a.active {
+  color: #00aa88;
+  font-weight: bold;
+}
+
+.contact-header {
+  text-align: center;
+  background: #fde8e8;
+  padding: 3rem 2rem;
+  border-bottom: 3px solid #f3f3f3;
+}
+
+.contact-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.info-box {
+  background: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  font-weight: bold;
+}
+
+.contact-body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 3rem 2rem;
+  gap: 2rem;
+}
+
+.contact-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  flex: 1;
+  min-width: 320px;
+  max-width: 500px;
+}
+
+.contact-form h2 {
+  margin-bottom: 1rem;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contact-form button {
+  padding: 0.8rem;
+  background-color: #68c1b8;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-map {
+  flex: 1;
+  min-width: 320px;
+  max-width: 500px;
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+}
+
+.map-caption {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.map-caption a {
+  text-decoration: none;
+  color: #00aa88;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #f1f1f1;
+  color: #555;
+}

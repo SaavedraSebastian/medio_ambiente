@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9fb;
+  color: #333;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a.active {
+  color: #00aa88;
+  font-weight: bold;
+}
+
+.hero {
+  background: url('https://source.unsplash.com/1200x500/?community,event') no-repeat center center/cover;
+  padding: 5rem 2rem;
+  text-align: center;
+  color: white;
+}
+
+.hero .overlay {
+  background-color: rgba(0,0,0,0.4);
+  padding: 2rem;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.hero button {
+  margin-top: 1rem;
+  background: #00aa88;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+}
+
+.events-stories {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3rem 2rem;
+  gap: 2rem;
+}
+
+.events {
+  flex: 2;
+}
+
+.stories {
+  flex: 1;
+  background: #f0f9f7;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.event-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.event-card img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.event-card h3 {
+  margin-top: 0.5rem;
+}
+
+.event-card .meta {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.event-card button {
+  margin-top: 0.8rem;
+  background: #68c1b8;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.story {
+  background: white;
+  padding: 1rem;
+  border-left: 4px solid #00aa88;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.partners-resources {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3rem 2rem;
+  gap: 2rem;
+}
+
+.partners, .resources {
+  flex: 1;
+}
+
+.partner {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #00aa88;
+  border-radius: 5px;
+}
+
+.resource {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #ccc;
+  border-radius: 5px;
+}
+
+.resource.highlighted {
+  border-left: 4px solid #9c8efb;
+  background-color: #f5f2ff;
+}
+
+.cta {
+  background: #e6f4f1;
+  text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 10px;
+  margin: 3rem 2rem;
+}
+
+.cta button {
+  background: #00aa88;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #f1f1f1;
+  color: #555;
+}
