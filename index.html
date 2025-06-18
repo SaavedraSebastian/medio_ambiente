@@ -4,29 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoGestión Trujillo</title>
+ <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="hero">
-    <div class="overlay">
-      <nav class="navbar">
-        <div class="logo">🌱 EcoGestión Trujillo</div>
-        <ul class="nav-links">
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="Residuos.html">Waste Overview</a></li>
-          <li><a href="Comunidad.html">Comunidad</a></li>
-          <li><a href="Reportes.html">Reportes</a></li>
-          <li><a href="Contactanos.html">Contáctanos</a></li>
-        </ul>
-      </nav>
-      <div class="hero-text">
-        <h1>Transformando Trujillo: Juntos por un Futuro Limpio.</h1>
-        <p>Una aplicación móvil y web para la gestión sostenible de residuos sólidos en el Mercado Mayorista de Trujillo. Súmate a la revolución verde.</p>
-        <button>Conócenos</button>
-      </div>
+   <header class="hero-bg min-h-screen flex flex-col font-barlow">
+  <nav class="py-4 px-6 md:px-12 flex justify-between items-center bg-black bg-opacity-50 backdrop-blur-sm">
+    <div class="flex items-center space-x-2">
+      <i class="fas fa-leaf text-3xl text-primary"></i>
+      <span class="text-white text-2xl font-bold">EcoGestión Trujillo</span>
     </div>
-  </header>
+    <div class="hidden md:flex space-x-6">
+      <a href="index.html" class="text-white hover:text-primary transition">Inicio</a>
+      <a href="Residuos.html" class="text-white hover:text-primary transition">Resumen de Residuos</a>
+      <a href="Comunidad.html" class="text-white hover:text-primary transition">Comunidad</a>
+      <a href="Reportes.html" class="text-white hover:text-primary transition">Reportes</a>
+      <a href="Contactanos.html" class="text-white hover:text-primary transition">Contáctanos</a>
+    </div>
+    <button id="menuBtn" class="md:hidden text-white text-2xl focus:outline-none">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+  <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-95 backdrop-blur-md z-50 hidden flex-col">
+    <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-leaf text-3xl text-primary"></i>
+        <span class="text-white text-2xl font-bold">EcoGestión Trujillo</span>
+      </div>
+      <button id="closeMenuBtn" class="text-white text-2xl">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="flex flex-col px-6 py-4 space-y-4">
+      <a href="index.html" class="text-white text-xl hover:text-primary transition">Inicio</a>
+      <a href="Residuos.html" class="text-white text-xl hover:text-primary transition">Resumen de Residuos</a>
+      <a href="Comunidad.html" class="text-white text-xl hover:text-primary transition">Comunidad</a>
+      <a href="Reportes.html" class="text-white text-xl hover:text-primary transition">Reportes</a>
+      <a href="Contactanos.html" class="text-white text-xl hover:text-primary transition">Contáctanos</a>
+    </div>
+  </div>
+  <div class="flex-grow flex flex-col justify-center items-center text-center px-6 md:px-12 py-16">
+    <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white max-w-4xl leading-tight mb-6">
+      Transformando Trujillo: Juntos por un Futuro Limpio
+    </h1>
+    <p class="text-lg md:text-xl text-gray-300 max-w-2xl mb-10">
+      Una aplicación móvil y web para la gestión sostenible de residuos sólidos en el Mercado Mayorista de Trujillo. Súmate a la revolución verde.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a href="#conocenos" class="bg-primary hover:bg-secondary text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+        Conócenos
+      </a>
+      <a href="#descargar" class="bg-transparent border-2 border-white hover:border-primary text-white hover:text-primary font-bold py-3 px-8 rounded-full transition duration-300">
+        <i class="fas fa-download mr-2"></i>Descargar App
+      </a>
+    </div>
+  </div>
+
+  <div class="flex justify-center pb-10 animate-bounce">
+    <a href="#seccion-siguiente" class="text-white text-2xl">
+      <i class="fas fa-chevron-down"></i>
+    </a>
+  </div>
+</header>
+
 
   <section class="mission">
     <div class="mission-content">
@@ -95,6 +141,7 @@
   <footer>
     <p>EcoGestión Trujillo © 2025. Todos los derechos reservados.</p>
   </footer>
+  <script src="script.js"></script>
 
 </body>
 </html>
