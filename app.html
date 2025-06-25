@@ -767,86 +767,80 @@
     }
 
     async function saveResiduo() {
-      if (!currentUser) return;
+  if (!currentUser) return;
 
-      // Obtener valores del formulario
-      const fecha = document.getElementById('fechaRegistro').value;
-      const peso = document.getElementById('pesoResiduo').value;
-      const observaciones = document.getElementById('observacionesResiduo').value;
+  const fecha = document.getElementById('fechaRegistro').value;
+  const peso = document.getElementById('pesoResiduo').value;
+  const observaciones = document.getElementById('observacionesResiduo').value;
 
-      // Obtener checkboxes seleccionados
-      const residuosSeleccionados = Array.from(document.querySelectorAll('input[name="tipoResiduo"]:checked'))
-        .map(el => el.value).join(', ');
+  const residuosSeleccionados = Array.from(
+    document.querySelectorAll('input[name="tipoResiduo"]:checked')
+  ).map(el => el.value).join(', ');
 
-      // Obtener radio buttons seleccionados
-      const separacion = document.querySelector('input[name="separacionResiduo"]:checked')?.value || 'No especificado';
-      const contenedor = document.querySelector('input[name="contenedorDiferenciado"]:checked')?.value || 'No especificado';
+  const separacion = document.querySelector('input[name="separacionResiduo"]:checked')?.value || 'No especificado';
+  const contenedor = document.querySelector('input[name="contenedorDiferenciado"]:checked')?.value || 'No especificado';
 
-      // Crear objeto con los datos
-      const registro = {
-        "Fecha de registro": fecha,
-        "Comerciante": currentUser.name,
-        "Email": currentUser.email,
-        "Rubro": currentUser.rubro,
-        "Local": currentUser.local,
-        "Zona/Pabellón": currentUser.zona,
-        "Tipo de residuos": residuosSeleccionados || 'No especificado',
-        "Peso (kg)": peso,
-        "Separación de residuos": separacion,
-        "Contenedor diferenciado": contenedor,
-        "Observaciones": observaciones || 'Ninguna',
-        "Timestamp": new Date().toISOString()
-      };
+  const registro = {
+    "Fecha de registro": fecha,
+    "Comerciante": currentUser.name,
+    "Email": currentUser.email,
+    "Rubro": currentUser.rubro,
+    "Local": currentUser.local,
+    "Zona/Pabellón": currentUser.zona,
+    "Tipo de residuos": residuosSeleccionados || 'No especificado',
+    "Peso (kg)": peso,
+    "Separación de residuos": separacion,
+    "Contenedor diferenciado": contenedor,
+    "Observaciones": observaciones || 'Ninguna',
+    "Timestamp": new Date().toISOString()
+  };
 
-      try {
-        // Guardar en Google Sheets
-        const response = await fetch(scriptURL, {
-          method: 'POST',
-          body: JSON.stringify(registro),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Registro guardado',
-            text: 'Los datos se han guardado correctamente',
-            showConfirmButton: false,
-            timer: 1500
-          });
-
-          // Limpiar formulario
-          document.getElementById('residuoForm').reset();
-          document.getElementById('fechaRegistro').value = new Date().toISOString().split('T')[0];
-        } else {
-          throw new Error('Error al guardar');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-
-        // Guardar en localStorage como respaldo
-        const registros = JSON.parse(localStorage.getItem('userRegistros') || '{}');
-        if (!registros[currentUser.email]) {
-          registros[currentUser.email] = [];
-        }
-        registros[currentUser.email].push(registro);
-        localStorage.setItem('userRegistros', JSON.stringify(registros));
-
-        Swal.fire({
-          icon: 'warning',
-          title: 'Registro guardado localmente',
-          text: 'Los datos se guardaron en tu dispositivo. Se sincronizarán cuando haya conexión.',
-          showConfirmButton: false,
-          timer: 2000
-        });
-
-        // Limpiar formulario
-        document.getElementById('residuoForm').reset();
-        document.getElementById('fechaRegistro').value = new Date().toISOString().split('T')[0];
+  try {
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify(registro),
+      headers: {
+        'Content-Type': 'application/json'
       }
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Registro guardado',
+        text: 'Los datos se han guardado correctamente',
+        timer: 1500,
+        showConfirmButton: false
+      });
+      document.getElementById('residuoForm').reset();
+      document.getElementById('fechaRegistro').value = new Date().toISOString().split('T')[0];
+    } else {
+      throw new Error(result.error || 'Error al guardar');
     }
+
+  } catch (error) {
+    console.error('Error:', error);
+
+    const registros = JSON.parse(localStorage.getItem('userRegistros') || '{}');
+    if (!registros[currentUser.email]) registros[currentUser.email] = [];
+    registros[currentUser.email].push(registro);
+    localStorage.setItem('userRegistros', JSON.stringify(registros));
+
+    Swal.fire({
+      icon: 'warning',
+      title: 'Registro guardado localmente',
+      text: 'No se pudo conectar. El registro se guardó localmente.',
+      timer: 2000,
+      showConfirmButton: false
+    });
+
+    document.getElementById('residuoForm').reset();
+    document.getElementById('fechaRegistro').value = new Date().toISOString().split('T')[0];
+  }
+}
+
 
     async function loadAdminData() {
       try {
