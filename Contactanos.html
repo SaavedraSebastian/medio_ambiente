@@ -1,58 +1,1003 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contáctanos - EcoGestión Trujillo</title>
-  <link rel="stylesheet" href="styles4.css">
+  <title>Gestión de Residuos - Mercado Mayorista de Trujillo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+  <style>
+    body {
+      font-family: 'Barlow', sans-serif;
+    }
+  </style>
 </head>
-<body>
 
-  <nav class="navbar">
-    <div class="logo">🌱 EcoGestion Trujillo</div>
-    <ul class="nav-links">
-      <li><a href="#">Inicio</a></li>
-      <li><a href="#">Waste Overview</a></li>
-      <li><a href="#">Comunidad</a></li>
-      <li><a href="#">Dashboard</a></li>
-      <li><a class="active" href="#">Contactanos</a></li>
-    </ul>
-  </nav>
+<body class="bg-gray-50 min-h-screen">
+  <div id="app" class="container mx-auto px-4 py-8">
+    <!-- Pantalla de Inicio de Sesión -->
+    <div id="loginScreen" class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg mt-10">
+      <div class="text-center mb-8">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Escudo_de_Trujillo.svg/1200px-Escudo_de_Trujillo.svg.png"
+          alt="Logo Trujillo" class="h-20 mx-auto mb-4">
+        <h1 class="text-3xl font-bold text-green-700">Mercado Mayorista</h1>
+        <h2 class="text-xl text-gray-600">Gestión Sostenible de Residuos</h2>
+      </div>
 
-  <header class="contact-header">
-    <h1>Get in Touch with EcoGestión Trujillo</h1>
-    <p>We'd love to hear from you! Whether you have questions, feedback, or want to partner with us for a sustainable Trujillo.</p>
-    <div class="contact-info">
-      <div class="info-box">📍 Trujillo, Perú</div>
-      <div class="info-box">📧 info@ecogestiontrujillo.com</div>
-      <div class="info-box">📞 +51 44 123 456</div>
-    </div>
-  </header>
+      <form id="loginForm" class="space-y-6">
+        <div>
+          <label for="loginEmail" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+          <input type="email" id="loginEmail" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
 
-  <section class="contact-body">
-    <div class="contact-form">
-      <h2>Send Us a Message</h2>
-      <form>
-        <input type="text" placeholder="Enter your name" required>
-        <input type="email" placeholder="your@email.com" required>
-        <input type="text" placeholder="Enter your subject" required>
-        <textarea placeholder="Enter your question or feedback" rows="6" required></textarea>
-        <button type="submit">Send Message</button>
+        <div>
+          <label for="loginPassword" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+          <input type="password" id="loginPassword" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div class="flex items-center justify-between">
+          <button type="button" id="btnShowRegister" class="text-sm text-green-600 hover:text-green-800 font-medium">
+            ¿No tienes cuenta? Regístrate
+          </button>
+
+          <button type="submit"
+            class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+            Iniciar Sesión
+          </button>
+        </div>
       </form>
-    </div>
-    <div class="contact-map">
-      <iframe src="https://maps.google.com/maps?q=EcoGestión%20Office%20Trujillo&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0"></iframe>
-      <div class="map-caption">
-        <h4>Our Headquarters</h4>
-        <p>Av. Juan Pablo II 123, Urb. San Andrés, Trujillo, Perú</p>
-        <a href="https://maps.google.com" target="_blank">View on Google Maps</a>
+
+      <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+        <button id="btnAdminLogin" class="text-sm text-gray-500 hover:text-gray-700 font-medium">
+          Acceso como administrador
+        </button>
       </div>
     </div>
-  </section>
 
-  <footer>
-    <p>© 2023 EcoGestión Trujillo</p>
-  </footer>
+    <!-- Pantalla de Registro -->
+    <div id="registerScreen" class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg mt-10 hidden">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-green-700">Registro de Comerciante</h1>
+        <p class="text-gray-600">Complete sus datos para registrarse en el sistema</p>
+      </div>
 
+      <form id="registerForm" class="space-y-4">
+        <div>
+          <label for="regNombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+          <input type="text" id="regNombre" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+          <label for="regEmail" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+          <input type="email" id="regEmail" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+          <label for="regPassword" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+          <input type="password" id="regPassword" required minlength="6"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+          <label for="regRubro" class="block text-sm font-medium text-gray-700 mb-1">Rubro o giro de negocio</label>
+          <input type="text" id="regRubro" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+          <label for="regLocal" class="block text-sm font-medium text-gray-700 mb-1">Nombre del local</label>
+          <input type="text" id="regLocal" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+
+        <div>
+          <label for="regZona" class="block text-sm font-medium text-gray-700 mb-1">Zona/Pabellón</label>
+          <select id="regZona" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+            <option value="">Seleccione una zona</option>
+            <option value="Pabellón A">Pabellón A - Frutas</option>
+            <option value="Pabellón B">Pabellón B - Verduras</option>
+            <option value="Pabellón C">Pabellón C - Carnes</option>
+            <option value="Pabellón D">Pabellón D - Abarrotes</option>
+          </select>
+        </div>
+
+        <div class="flex items-center justify-between pt-4">
+          <button type="button" id="btnBackToLogin"
+            class="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+            Volver
+          </button>
+
+          <button type="submit"
+            class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+            Registrarse
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Pantalla de Administrador -->
+    <div id="adminScreen" class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg mt-10 hidden">
+      <div class="flex justify-between items-center mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-green-700">Panel de Administración</h1>
+          <p class="text-gray-600">Gestión de registros de residuos</p>
+        </div>
+        <button id="btnAdminLogout" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+          Cerrar Sesión
+        </button>
+      </div>
+
+      <div class="mb-6 flex justify-between items-center">
+        <div>
+          <button id="btnExportExcel" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mr-3">
+            <i class="fas fa-file-excel mr-2"></i>Exportar a Excel
+          </button>
+          <button id="btnRefreshData" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+            <i class="fas fa-sync-alt mr-2"></i>Actualizar Datos
+          </button>
+        </div>
+        <div class="text-sm text-gray-500">
+          <span id="lastUpdate">Última actualización: --/--/---- --:--</span>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table id="adminTable" class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comerciante
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Local</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Zona</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Residuos</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Peso (kg)</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Separación</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody" class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td colspan="7" class="px-6 py-4 text-center text-gray-500">Cargando datos...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pantalla Principal de Usuario -->
+    <div id="mainScreen" class="hidden">
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-1/4 bg-white p-6 rounded-lg shadow">
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+              <i class="fas fa-user"></i>
+            </div>
+            <div>
+              <h3 class="font-medium" id="userNameDisplay">Juan Pérez</h3>
+              <p class="text-sm text-gray-500" id="userLocalDisplay">Venta de Frutas - Pabellón A</p>
+            </div>
+          </div>
+
+          <nav>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" id="menuRegistro"
+                  class="flex items-center space-x-2 text-green-700 font-medium p-2 rounded bg-green-50">
+                  <i class="fas fa-trash-alt"></i>
+                  <span>Registro de Residuos</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" id="menuHistorial"
+                  class="flex items-center space-x-2 text-gray-600 hover:text-green-700 p-2 rounded hover:bg-green-50">
+                  <i class="fas fa-history"></i>
+                  <span>Mi Historial</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" id="menuPerfil"
+                  class="flex items-center space-x-2 text-gray-600 hover:text-green-700 p-2 rounded hover:bg-green-50">
+                  <i class="fas fa-user-cog"></i>
+                  <span>Mi Perfil</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="mt-8 pt-4 border-t border-gray-200">
+            <button id="btnLogout"
+              class="w-full flex items-center space-x-2 text-gray-600 hover:text-red-600 p-2 rounded hover:bg-red-50">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Cerrar Sesión</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="w-full md:w-3/4 bg-white p-8 rounded-lg shadow">
+          <!-- Sección de Registro de Residuos -->
+          <div id="registroSection">
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-xl font-bold text-gray-800">Registro de Residuos</h2>
+              <div class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">
+                <i class="fas fa-calendar-day mr-1"></i>
+                <span id="currentDateDisplay"></span>
+              </div>
+            </div>
+
+            <form id="residuoForm" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="fechaRegistro" class="block text-sm font-medium text-gray-700 mb-1">Fecha del
+                    registro</label>
+                  <input type="date" id="fechaRegistro" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                </div>
+                <div>
+                  <label for="pesoResiduo" class="block text-sm font-medium text-gray-700 mb-1">Peso estimado
+                    (kg)</label>
+                  <input type="number" id="pesoResiduo" min="0" step="0.1" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de residuos generados</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" name="tipoResiduo" value="Orgánicos"
+                      class="h-5 w-5 text-green-600 rounded border-gray-300 focus:ring-green-500">
+                    <span class="ml-2 text-gray-700">Orgánicos</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" name="tipoResiduo" value="Inorgánicos reciclables"
+                      class="h-5 w-5 text-green-600 rounded border-gray-300 focus:ring-green-500">
+                    <span class="ml-2 text-gray-700">Inorgánicos reciclables</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" name="tipoResiduo" value="Inorgánicos no reciclables"
+                      class="h-5 w-5 text-green-600 rounded border-gray-300 focus:ring-green-500">
+                    <span class="ml-2 text-gray-700">Inorgánicos no reciclables</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" name="tipoResiduo" value="Residuos peligrosos"
+                      class="h-5 w-5 text-green-600 rounded border-gray-300 focus:ring-green-500">
+                    <span class="ml-2 text-gray-700">Residuos peligrosos</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">¿Realizó separación de residuos?</label>
+                  <div class="flex space-x-4">
+                    <label class="inline-flex items-center">
+                      <input type="radio" name="separacionResiduo" value="Sí" required
+                        class="h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500">
+                      <span class="ml-2 text-gray-700">Sí</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input type="radio" name="separacionResiduo" value="No"
+                        class="h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500">
+                      <span class="ml-2 text-gray-700">No</span>
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">¿Usó contenedor diferenciado?</label>
+                  <div class="flex space-x-4">
+                    <label class="inline-flex items-center">
+                      <input type="radio" name="contenedorDiferenciado" value="Sí" required
+                        class="h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500">
+                      <span class="ml-2 text-gray-700">Sí</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input type="radio" name="contenedorDiferenciado" value="No"
+                        class="h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500">
+                      <span class="ml-2 text-gray-700">No</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label for="observacionesResiduo"
+                  class="block text-sm font-medium text-gray-700 mb-1">Observaciones</label>
+                <textarea id="observacionesResiduo" rows="3"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"></textarea>
+              </div>
+
+              <div class="flex justify-end space-x-4 pt-4">
+                <button type="button" id="btnCancelarRegistro"
+                  class="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                  Cancelar
+                </button>
+                <button type="button" onclick="saveResiduo()"
+                  class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                  <i class="fas fa-save mr-2"></i> Guardar Registro
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Sección de Historial -->
+          <div id="historialSection" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-xl font-bold text-gray-800">Mi Historial de Registros</h2>
+              <button id="btnExportUserData"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm">
+                <i class="fas fa-file-excel mr-2"></i>Exportar mis datos
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Residuos
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Peso (kg)
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Separación</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Contenedor</th>
+                  </tr>
+                </thead>
+                <tbody id="userHistoryTable" class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">No hay registros disponibles</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Sección de Perfil -->
+          <div id="perfilSection" class="hidden">
+            <h2 class="text-xl font-bold text-gray-800 mb-6">Mi Perfil</h2>
+
+            <form id="perfilForm" class="space-y-6 max-w-lg">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="perfilNombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+                  <input type="text" id="perfilNombre" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                </div>
+                <div>
+                  <label for="perfilEmail" class="block text-sm font-medium text-gray-700 mb-1">Correo
+                    electrónico</label>
+                  <input type="email" id="perfilEmail" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                </div>
+              </div>
+
+              <div>
+                <label for="perfilRubro" class="block text-sm font-medium text-gray-700 mb-1">Rubro o giro de
+                  negocio</label>
+                <input type="text" id="perfilRubro" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+              </div>
+
+              <div>
+                <label for="perfilLocal" class="block text-sm font-medium text-gray-700 mb-1">Nombre del local</label>
+                <input type="text" id="perfilLocal" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+              </div>
+
+              <div>
+                <label for="perfilZona" class="block text-sm font-medium text-gray-700 mb-1">Zona/Pabellón</label>
+                <select id="perfilZona" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                  <option value="">Seleccione una zona</option>
+                  <option value="Pabellón A">Pabellón A - Frutas</option>
+                  <option value="Pabellón B">Pabellón B - Verduras</option>
+                  <option value="Pabellón C">Pabellón C - Carnes</option>
+                  <option value="Pabellón D">Pabellón D - Abarrotes</option>
+                </select>
+              </div>
+
+              <div class="pt-4 border-t border-gray-200">
+                <h3 class="text-lg font-medium text-gray-800 mb-4">Cambiar contraseña</h3>
+
+                <div class="space-y-4">
+                  <div>
+                    <label for="perfilPasswordActual" class="block text-sm font-medium text-gray-700 mb-1">Contraseña
+                      actual</label>
+                    <input type="password" id="perfilPasswordActual"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                  </div>
+
+                  <div>
+                    <label for="perfilPasswordNueva" class="block text-sm font-medium text-gray-700 mb-1">Nueva
+                      contraseña</label>
+                    <input type="password" id="perfilPasswordNueva" minlength="6"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                  </div>
+
+                  <div>
+                    <label for="perfilPasswordConfirmar" class="block text-sm font-medium text-gray-700 mb-1">Confirmar
+                      nueva contraseña</label>
+                    <input type="password" id="perfilPasswordConfirmar" minlength="6"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end pt-4">
+                <button type="submit"
+                  class="px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                  <i class="fas fa-save mr-2"></i> Guardar Cambios
+                </button>
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuración de Google Sheets
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyFZrTilWgjFxsVBwfLx0eGGrwwKW6fy1qA_fBZnnb1r_f3YpHpgE--pT-nw6gcIP0l/exec';
+
+    // Datos de la aplicación
+    let currentUser = null;
+    let registros = [];
+    let adminData = [];
+
+    // Configuración inicial
+    document.addEventListener('DOMContentLoaded', function () {
+      // Mostrar fecha actual
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('fechaRegistro').value = today;
+      document.getElementById('currentDateDisplay').textContent = new Date().toLocaleDateString('es-PE', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      // Manejar navegación
+      setupNavigation();
+
+      // Manejar formularios
+      setupForms();
+
+      // Verificar si hay usuario logeado
+      checkLoggedInUser();
+    });
+
+    function setupNavigation() {
+      // Login/Register
+      document.getElementById('btnShowRegister').addEventListener('click', showRegisterScreen);
+      document.getElementById('btnBackToLogin').addEventListener('click', showLoginScreen);
+      document.getElementById('btnAdminLogin').addEventListener('click', showAdminLogin);
+
+      // Main app navigation
+      document.getElementById('menuRegistro').addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('registroSection');
+      });
+
+      document.getElementById('menuHistorial').addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('historialSection');
+        loadUserHistory();
+      });
+
+      document.getElementById('menuPerfil').addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('perfilSection');
+        loadProfileData();
+      });
+
+      document.getElementById('btnLogout').addEventListener('click', logout);
+      document.getElementById('btnAdminLogout').addEventListener('click', logout);
+
+      // Admin buttons
+      document.getElementById('btnExportExcel').addEventListener('click', exportAdminDataToExcel);
+      document.getElementById('btnRefreshData').addEventListener('click', loadAdminData);
+    }
+
+    function setupForms() {
+      // Login form
+      document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        // Verificar credenciales (en un caso real, esto sería contra una base de datos)
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          loginUser(user);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Correo electrónico o contraseña incorrectos',
+          });
+        }
+      });
+
+      // Register form
+      document.getElementById('registerForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const user = {
+          name: document.getElementById('regNombre').value,
+          email: document.getElementById('regEmail').value,
+          password: document.getElementById('regPassword').value,
+          rubro: document.getElementById('regRubro').value,
+          local: document.getElementById('regLocal').value,
+          zona: document.getElementById('regZona').value,
+          isAdmin: false
+        };
+
+        // Guardar usuario
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+        // Verificar si el correo ya existe
+        if (users.some(u => u.email === user.email)) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Este correo electrónico ya está registrado',
+          });
+          return;
+        }
+
+        users.push(user);
+        localStorage.setItem('users', JSON.stringify(users));
+
+        // Iniciar sesión automáticamente
+        loginUser(user);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Registro exitoso',
+          text: '¡Bienvenido al sistema!',
+        });
+      });
+
+      // Residuo form
+      document.getElementById('residuoForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        saveResiduo();
+      });
+
+      document.getElementById('btnCancelarRegistro').addEventListener('click', function () {
+        document.getElementById('residuoForm').reset();
+        document.getElementById('fechaRegistro').value = new Date().toISOString().split('T')[0];
+      });
+
+      // Perfil form
+      document.getElementById('perfilForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        saveProfile();
+      });
+    }
+
+    function showLoginScreen() {
+      document.getElementById('loginScreen').classList.remove('hidden');
+      document.getElementById('registerScreen').classList.add('hidden');
+      document.getElementById('mainScreen').classList.add('hidden');
+      document.getElementById('adminScreen').classList.add('hidden');
+    }
+
+    function showRegisterScreen() {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('registerScreen').classList.remove('hidden');
+      document.getElementById('mainScreen').classList.add('hidden');
+      document.getElementById('adminScreen').classList.add('hidden');
+    }
+
+    function showMainScreen() {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('registerScreen').classList.add('hidden');
+      document.getElementById('mainScreen').classList.remove('hidden');
+      document.getElementById('adminScreen').classList.add('hidden');
+
+      showSection('registroSection');
+    }
+
+    function showAdminScreen() {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('registerScreen').classList.add('hidden');
+      document.getElementById('mainScreen').classList.add('hidden');
+      document.getElementById('adminScreen').classList.remove('hidden');
+
+      loadAdminData();
+    }
+
+    function showSection(sectionId) {
+      document.getElementById('registroSection').classList.add('hidden');
+      document.getElementById('historialSection').classList.add('hidden');
+      document.getElementById('perfilSection').classList.add('hidden');
+
+      document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    function showAdminLogin() {
+      Swal.fire({
+        title: 'Acceso de Administrador',
+        html: `
+                    <div class="space-y-4">
+                        <input id="adminEmail" type="email" placeholder="Correo electrónico" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <input id="adminPassword" type="password" placeholder="Contraseña" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                `,
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Ingresar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: () => {
+          const email = document.getElementById('adminEmail').value;
+          const password = document.getElementById('adminPassword').value;
+
+          // Credenciales de admin (en producción, esto debería ser más seguro)
+          if (email === 'admin@mercado.com' && password === 'admin123') {
+            loginUser({
+              name: 'Administrador',
+              email: email,
+              isAdmin: true
+            });
+          } else {
+            Swal.showValidationMessage('Credenciales incorrectas');
+            return false;
+          }
+        }
+      });
+    }
+
+    function checkLoggedInUser() {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      if (user) {
+        loginUser(user, true);
+      }
+    }
+
+    function loginUser(user, silent = false) {
+      currentUser = user;
+      localStorage.setItem('currentUser', JSON.stringify(user));
+
+      if (user.isAdmin) {
+        showAdminScreen();
+      } else {
+        // Actualizar UI con datos del usuario
+        document.getElementById('userNameDisplay').textContent = user.name;
+        document.getElementById('userLocalDisplay').textContent = `${user.local} - ${user.zona}`;
+
+        showMainScreen();
+      }
+
+      if (!silent) {
+        Swal.fire({
+          icon: 'success',
+          title: `¡Bienvenido ${user.name}!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('currentUser');
+      showLoginScreen();
+    }
+
+    function loadProfileData() {
+      if (!currentUser) return;
+
+      document.getElementById('perfilNombre').value = currentUser.name;
+      document.getElementById('perfilEmail').value = currentUser.email;
+      document.getElementById('perfilRubro').value = currentUser.rubro || '';
+      document.getElementById('perfilLocal').value = currentUser.local || '';
+      document.getElementById('perfilZona').value = currentUser.zona || '';
+    }
+
+    function saveProfile() {
+      if (!currentUser) return;
+
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const userIndex = users.findIndex(u => u.email === currentUser.email);
+
+      if (userIndex === -1) return;
+
+      // Actualizar datos básicos
+      users[userIndex].name = document.getElementById('perfilNombre').value;
+      users[userIndex].rubro = document.getElementById('perfilRubro').value;
+      users[userIndex].local = document.getElementById('perfilLocal').value;
+      users[userIndex].zona = document.getElementById('perfilZona').value;
+
+      // Cambiar contraseña si se proporcionó
+      const currentPassword = document.getElementById('perfilPasswordActual').value;
+      const newPassword = document.getElementById('perfilPasswordNueva').value;
+      const confirmPassword = document.getElementById('perfilPasswordConfirmar').value;
+
+      if (currentPassword && newPassword && confirmPassword) {
+        if (users[userIndex].password !== currentPassword) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La contraseña actual no es correcta',
+          });
+          return;
+        }
+
+        if (newPassword !== confirmPassword) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Las nuevas contraseñas no coinciden',
+          });
+          return;
+        }
+
+        users[userIndex].password = newPassword;
+      }
+
+      localStorage.setItem('users', JSON.stringify(users));
+      currentUser = users[userIndex];
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+      // Actualizar UI
+      document.getElementById('userNameDisplay').textContent = currentUser.name;
+      document.getElementById('userLocalDisplay').textContent = `${currentUser.local} - ${currentUser.zona}`;
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Perfil actualizado',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+
+    async function saveResiduo() {
+      if (!currentUser) return;
+
+      // Obtener valores del formulario
+      const fecha = document.getElementById('fechaRegistro').value;
+      const peso = document.getElementById('pesoResiduo').value;
+      const observaciones = document.getElementById('observacionesResiduo').value;
+
+      // Obtener checkboxes seleccionados
+      const residuosSeleccionados = Array.from(document.querySelectorAll('input[name="tipoResiduo"]:checked'))
+        .map(el => el.value).join(', ');
+
+      // Obtener radio buttons seleccionados
+      const separacion = document.querySelector('input[name="separacionResiduo"]:checked')?.value || 'No especificado';
+      const contenedor = document.querySelector('input[name="contenedorDiferenciado"]:checked')?.value || 'No especificado';
+
+      // Crear objeto con los datos
+      const registro = {
+        "Fecha de registro": fecha,
+        "Comerciante": currentUser.name,
+        "Email": currentUser.email,
+        "Rubro": currentUser.rubro,
+        "Local": currentUser.local,
+        "Zona/Pabellón": currentUser.zona,
+        "Tipo de residuos": residuosSeleccionados || 'No especificado',
+        "Peso (kg)": peso,
+        "Separación de residuos": separacion,
+        "Contenedor diferenciado": contenedor,
+        "Observaciones": observaciones || 'Ninguna',
+        "Timestamp": new Date().toISOString()
+      };
+
+      try {
+        // Guardar en Google Sheets
+        const response = await fetch(scriptURL, {
+          method: 'POST',
+          body: JSON.stringify(registro),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro guardado',
+            text: 'Los datos se han guardado correctamente',
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+          // Limpiar formulario
+          document.getElementById('residuoForm').reset();
+          document.getElementById('fechaRegistro').value = new Date().toISOString().split('T')[0];
+        } else {
+          throw new Error('Error al guardar');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+
+        // Guardar en localStorage como respaldo
+        const registros = JSON.parse(localStorage.getItem('userRegistros') || '{}');
+        if (!registros[currentUser.email]) {
+          registros[currentUser.email] = [];
+        }
+        registros[currentUser.email].push(registro);
+        localStorage.setItem('userRegistros', JSON.stringify(registros));
+
+        Swal.fire({
+          icon: 'warning',
+          title: 'Registro guardado localmente',
+          text: 'Los datos se guardaron en tu dispositivo. Se sincronizarán cuando haya conexión.',
+          showConfirmButton: false,
+          timer: 2000
+        });
+
+        // Limpiar formulario
+        document.getElementById('residuoForm').reset();
+        document.getElementById('fechaRegistro').value = new Date().toISOString().split('T')[0];
+      }
+    }
+
+    async function loadAdminData() {
+      try {
+        document.getElementById('adminTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>Cargando datos...
+                        </td>
+                    </tr>
+                `;
+
+        // Obtener datos de Google Sheets
+        const response = await fetch(`${scriptURL}?action=getData`);
+        const data = await response.json();
+
+        adminData = data;
+
+        // Actualizar tabla
+        updateAdminTable(data);
+
+        // Actualizar última actualización
+        document.getElementById('lastUpdate').textContent = `Última actualización: ${new Date().toLocaleString('es-PE')}`;
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+        document.getElementById('adminTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-red-500">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Error al cargar datos
+                        </td>
+                    </tr>
+                `;
+      }
+    }
+
+    function updateAdminTable(data) {
+      const tbody = document.getElementById('adminTableBody');
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">No hay registros disponibles</td>
+                    </tr>
+                `;
+        return;
+      }
+
+      data.forEach(registro => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50';
+        tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Fecha de registro']}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Comerciante']}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Local']}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Zona/Pabellón']}</td>
+                    <td class="px-6 py-4 text-sm text-gray-900">${registro['Tipo de residuos']}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Peso (kg)']}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Separación de residuos']}</td>
+                `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function loadUserHistory() {
+      const registros = JSON.parse(localStorage.getItem('userRegistros') || '{}');
+      const userRegistros = registros[currentUser.email] || [];
+
+      const tbody = document.getElementById('userHistoryTable');
+      tbody.innerHTML = '';
+
+      if (userRegistros.length === 0) {
+        tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">No hay registros disponibles</td>
+                    </tr>
+                `;
+        return;
+      }
+
+      // Ordenar por fecha (más reciente primero)
+      userRegistros.sort((a, b) => new Date(b['Fecha de registro']) - new Date(a['Fecha de registro']));
+
+      userRegistros.forEach(registro => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50';
+        tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Fecha de registro']}</td>
+                    <td class="px-6 py-4 text-sm text-gray-900">${registro['Tipo de residuos']}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Peso (kg)']}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Separación de residuos']}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${registro['Contenedor diferenciado']}</td>
+                `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function exportAdminDataToExcel() {
+      if (adminData.length === 0) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'No hay datos',
+          text: 'No hay registros para exportar',
+        });
+        return;
+      }
+
+      // Crear hoja de trabajo
+      const ws = XLSX.utils.json_to_sheet(adminData);
+
+      // Crear libro de trabajo
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Registros");
+
+      // Generar nombre de archivo con fecha
+      const fechaDescarga = new Date().toISOString().slice(0, 10);
+      const nombreArchivo = `Registros_Residuos_${fechaDescarga}.xlsx`;
+
+      // Exportar a Excel
+      XLSX.writeFile(wb, nombreArchivo);
+    }
+
+    document.getElementById('btnExportUserData').addEventListener('click', function () {
+      const registros = JSON.parse(localStorage.getItem('userRegistros') || '{}');
+      const userRegistros = registros[currentUser.email] || [];
+
+      if (userRegistros.length === 0) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'No hay datos',
+          text: 'No tienes registros para exportar',
+        });
+        return;
+      }
+
+      // Crear hoja de trabajo
+      const ws = XLSX.utils.json_to_sheet(userRegistros);
+
+      // Crear libro de trabajo
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Mis Registros");
+
+      // Generar nombre de archivo con fecha
+      const fechaDescarga = new Date().toISOString().slice(0, 10);
+      const nombreArchivo = `Mis_Registros_${currentUser.name}_${fechaDescarga}.xlsx`;
+
+      // Exportar a Excel
+      XLSX.writeFile(wb, nombreArchivo);
+    });
+  </script>
 </body>
+
 </html>
